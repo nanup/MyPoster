@@ -15,7 +15,7 @@ const PosterList = (props) => {
         title={poster.title}
         year={poster.year}
         description={poster.description}
-        imdblink={poster.imdblink}
+        trailerlink={poster.trailerlink}
         userid={poster.userid}
       />)}
     </ul>

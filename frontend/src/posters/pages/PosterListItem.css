@@ -49,6 +49,12 @@
   margin: 0.5rem;
 }
 
+.map-container {
+  width: 100%;
+  text-align: center;
+  overflow: hidden
+}
+
 @media (min-width: 768px) {
   .place-item__image {
     height: 20rem;
