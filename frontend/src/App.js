@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import Users from './user/pages/Users';
 import NewPoster from "./posters/pages/NewPoster";
+import UserPosters from './posters/pages/UserPosters';
 
 function App () {
   return <Router>
@@ -11,6 +12,7 @@ function App () {
     <main>
       <Routes>
         <Route path="/" element={<Users />} />
+        <Route path="/:uid/posters" element={<UserPosters />} />
         <Route path="/posters/new" element={<NewPoster />} />
         <Route path="/*" element={<Navigate to="/" replace />} />
       </Routes>
