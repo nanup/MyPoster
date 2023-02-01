@@ -19,7 +19,7 @@ const Users = () => {
       id: "u3",
       image: "https://images.unsplash.com/flagged/photo-1566127992631-137a642a90f4",
       name: "Anil Kumar Pappu",
-      posterCount: 1.5
+      posterCount: 1
     }
   ];
 
