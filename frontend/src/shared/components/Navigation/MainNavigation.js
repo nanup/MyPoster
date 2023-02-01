@@ -11,24 +11,23 @@ import "./MainNavigation.css";
 const MainNavigation = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
 
-  const showDrawer = () => {
+  const showDrawerHandler = () => {
     setDrawerVisible(true);
   }
 
-  const hideDrawer = () => {
+  const hideDrawerHandler = () => {
     setDrawerVisible(false);
   }
 
   return <React.Fragment>
-    {drawerVisible && <Backdrop onClick={hideDrawer} />}
-    {drawerVisible &&
-      <SideDrawer>
-        <nav className="main-navigation__drawer-nav">
-          <NavLinks />
-        </nav>
-      </SideDrawer>}
+    {drawerVisible && <Backdrop onClick={hideDrawerHandler} />}
+    <SideDrawer onClick={hideDrawerHandler} visible={drawerVisible}>
+      <nav className="main-navigation__drawer-nav">
+        <NavLinks />
+      </nav>
+    </SideDrawer>
     <MainHeader>
-      <button onClick={showDrawer} className="main-navigation__menu-btn">
+      <button onClick={showDrawerHandler} className="main-navigation__menu-btn">
         <span />
         <span />
         <span />
