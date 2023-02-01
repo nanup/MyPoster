@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 import PosterList from "./PosterList";
 
@@ -15,7 +16,9 @@ const DUMMY_POSTERS = [
 ];
 
 const UserPosters = () => {
-  return <PosterList posters={DUMMY_POSTERS} />
+  const userid = useParams().uid;
+  const userPosters = DUMMY_POSTERS.filter(poster => poster.userid === userid)
+  return <PosterList posters={userPosters} />
 }
 
 export default UserPosters;
