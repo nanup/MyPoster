@@ -11,14 +11,16 @@ const DUMMY_POSTERS = [
     image: "https://i.redd.it/c03fqf6peuca1.jpg",
     year: 2000,
     trailerlink: "https://www.youtube.com/embed/m8GuedsQnWQ",
-    userid: "u1"
-  }
+    userid: "u1",
+  },
 ];
 
 const UserPosters = () => {
   const userid = useParams().uid;
-  const userPosters = DUMMY_POSTERS.filter(poster => poster.userid === userid)
-  return <PosterList posters={userPosters} />
-}
+  const userPosters = DUMMY_POSTERS.filter(
+    (poster) => poster.userid === userid
+  );
+  return <PosterList posters={userPosters} />;
+};
 
 export default UserPosters;

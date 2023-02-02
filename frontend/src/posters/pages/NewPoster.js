@@ -6,7 +6,7 @@ import "./NewPoster.css";
 const NewPoster = () => {
   return (
     <form className='place-form'>
-      <Input />
+      <Input element='input' type='text' label='Title' />
     </form>
   );
 };
