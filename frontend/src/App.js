@@ -1,10 +1,10 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 
-import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import Users from './user/pages/Users';
+import React from 'react';
 import NewPoster from "./posters/pages/NewPoster";
 import UserPosters from './posters/pages/UserPosters';
+import MainNavigation from "./shared/components/Navigation/MainNavigation";
+import Users from './user/pages/Users';
 
 function App () {
   return <Router>
