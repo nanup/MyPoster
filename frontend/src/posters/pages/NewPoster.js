@@ -1,7 +1,11 @@
 import React from "react";
 
+import Input from "../../shared/components/FormElements/Input";
+
 const NewPoster = () => {
-  return <h2>New Poster</h2>
+  return <form className="place-form">
+    
+  </form>
 }
 
 export default NewPoster;
