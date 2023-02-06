@@ -6,7 +6,14 @@ import "./NewPoster.css";
 const NewPoster = () => {
   return (
     <form className='place-form'>
-      <Input element='input' type='text' label='Title' />
+      <Input
+        element='input'
+        type='text'
+        label='Title'
+        validators={[]}
+        input={""}
+        errorText={"Please enter a valid title"}
+      />
     </form>
   );
 };
