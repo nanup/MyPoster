@@ -14,25 +14,26 @@ const formReducer = (state, action) => {
     case "INPUT_CHANGE":
       let formIsValid = true;
 
-      for (const input in state.inputs) {
-        if (input === action.inputeId) {
+      for (const inputId in state.inputs) {
+        if (inputId === action.inputeId) {
           formIsValid = formIsValid && action.isValid;
         } else {
-          formIsValid = formIsValid && state.inputs[input].isValid;
+          formIsValid = formIsValid && state.inputs[inputId].isValid;
         }
       }
 
       return {
         ...state,
-        input: {
+        inputs: {
           ...state.input,
           [action.input]: {
             value: action.value,
             isValid: action.isValid,
           },
-          isValid: formIsValid,
         },
+        isValid: formIsValid,
       };
+
     default:
       return state;
   }
@@ -53,10 +54,10 @@ const NewPoster = () => {
     isValid: false,
   });
 
-  const inputHanler = useCallback(
+  const inputHandler = useCallback(
     (id, value, isValid) => {
       dispatch({
-        input: id,
+        inputId: id,
         isValid: isValid,
         type: "INPUT_CHANGE",
         value: value,
@@ -73,7 +74,7 @@ const NewPoster = () => {
         id='Title'
         input={""}
         label='Title'
-        onInput={inputHanler}
+        onInput={inputHandler}
         type='text'
         validators={[VALIDATOR_REQUIRE()]}
       />
@@ -82,7 +83,7 @@ const NewPoster = () => {
         errorText={"Please enter a valid description"}
         id='Description'
         label='Description'
-        onInput={inputHanler}
+        onInput={inputHandler}
         validators={[VALIDATOR_MINLENGTH(5)]}
       />
       <Button type='submit' disabled={!formState.isValid}>
