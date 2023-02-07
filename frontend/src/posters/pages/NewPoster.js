@@ -1,5 +1,6 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useReducer } from "react";
 
+import Button from "./../../shared/components/FormElements/Button";
 import Input from "../../shared/components/FormElements/Input";
 import {
   VALIDATOR_REQUIRE,
@@ -8,10 +9,61 @@ import {
 
 import "./NewPoster.css";
 
-const NewPoster = () => {
-  const titleInputHanler = useCallback((id, value, isValid) => {}, []);
+const formReducer = (state, action) => {
+  switch (action.type) {
+    case "INPUT_CHANGE":
+      let formIsValid = true;
 
-  const descInputHanler = useCallback((id, value, isValid) => {}, []);
+      for (const input in state.inputs) {
+        if (input === action.inputeId) {
+          formIsValid = formIsValid && action.isValid;
+        } else {
+          formIsValid = formIsValid && state.inputs[input].isValid;
+        }
+      }
+
+      return {
+        ...state,
+        input: {
+          ...state.input,
+          [action.input]: {
+            value: action.value,
+            isValid: action.isValid,
+          },
+          isValid: formIsValid,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
+const NewPoster = () => {
+  const [formState, dispatch] = useReducer(formReducer, {
+    inputs: {
+      title: {
+        value: "",
+        isValid: false,
+      },
+      description: {
+        value: "",
+        isValid: false,
+      },
+    },
+    isValid: false,
+  });
+
+  const inputHanler = useCallback(
+    (id, value, isValid) => {
+      dispatch({
+        input: id,
+        isValid: isValid,
+        type: "INPUT_CHANGE",
+        value: value,
+      });
+    },
+    [dispatch]
+  );
 
   return (
     <form className='place-form'>
@@ -21,7 +73,7 @@ const NewPoster = () => {
         id='Title'
         input={""}
         label='Title'
-        onInput={titleInputHanler}
+        onInput={inputHanler}
         type='text'
         validators={[VALIDATOR_REQUIRE()]}
       />
@@ -30,9 +82,12 @@ const NewPoster = () => {
         errorText={"Please enter a valid description"}
         id='Description'
         label='Description'
-        onInput={descInputHanler}
+        onInput={inputHanler}
         validators={[VALIDATOR_MINLENGTH(5)]}
       />
+      <Button type='submit' disabled={!formState.isValid}>
+        Add Poster
+      </Button>
     </form>
   );
 };
