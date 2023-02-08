@@ -29,16 +29,16 @@ const Input = (props) => {
     isTouched: false,
   });
 
-  const { id, onInput, validators } = props;
+  const { id, onInput } = props;
   const { value, isValid } = inputState;
 
   useEffect(() => {
-    if (id === "trailerLink" || id ==="description") {
+    if (id === "trailerLink" || id === "description") {
       touchHandler();
       dispatchFn({
         type: "CHANGE",
         val: "",
-        validators: validators,
+        validators: [],
       });
     }
     onInput(id, value, isValid);
