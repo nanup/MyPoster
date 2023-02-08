@@ -29,10 +29,18 @@ const Input = (props) => {
     isTouched: false,
   });
 
-  const { id, onInput } = props;
+  const { id, onInput, validators } = props;
   const { value, isValid } = inputState;
 
   useEffect(() => {
+    if (id === "trailerLink" || id ==="description") {
+      touchHandler();
+      dispatchFn({
+        type: "CHANGE",
+        val: "",
+        validators: validators,
+      });
+    }
     onInput(id, value, isValid);
   }, [id, value, isValid, onInput]);
 
@@ -54,19 +62,19 @@ const Input = (props) => {
     props.element === "input" ? (
       <input
         id={props.id}
-        type={props.type}
-        placeholder={props.placeholder}
-        onChange={changeHandler}
-        value={inputState.value}
         onBlur={touchHandler}
+        onChange={changeHandler}
+        placeholder={props.placeholder}
+        type={props.type}
+        value={inputState.value}
       />
     ) : (
       <textarea
-        onBlur={touchHandler}
-        value={inputState.value}
         id={props.id}
-        rows={props.rows || 3}
+        onBlur={touchHandler}
         onChange={changeHandler}
+        rows={props.rows || 3}
+        value={inputState.value}
       />
     );
 
