@@ -25,13 +25,18 @@
 .nav-links a:active,
 .nav-links a.active {
   background: #ff2626;
-  border-color: #292929;
+  border-color: #000000;
   color: #292929;
+  border-radius: 10%;
+  -webkit-border-radius: 10%;
+  -moz-border-radius: 10%;
+  -ms-border-radius: 10%;
+  -o-border-radius: 10%;
 }
 
 .nav-links button {
   cursor: pointer;
-  border: 1px solid #292929;
+  border: 2px solid #292929;
   color: #292929;
   background: transparent;
   padding: 0.5rem;
@@ -44,7 +49,7 @@
 
 .nav-links button:hover,
 .nav-links button:active {
-  background: #292929;
+  background: #ffffff;
   color: white;
 }
 

@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Card from "../../shared/components/UIElements/Card";
 import Button from "../../shared/components/FormElements/Button";
 import Modal from "../../shared/components/UIElements/Modal";
 
 import "./PosterListItem.css";
+import { AuthContext } from "./../../shared/components/FormElements/context/auth-contex";
 
 const PosterListItem = (props) => {
+  const ctx = useContext(AuthContext);
   const [showTrailer, setShowTrailer] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -87,10 +89,14 @@ const PosterListItem = (props) => {
             <Button onClick={showTrailerHandler} inverse>
               VIEW TRAILER
             </Button>
-            <Button to={`/posters/${props.id}`}>EDIT</Button>
-            <Button danger onClick={showConfirmHandler}>
-              DELETE
-            </Button>
+            {ctx.isLoggedIn && (
+              <Button to={`/posters/${props.id}`}>EDIT</Button>
+            )}
+            {ctx.isLoggedIn && (
+              <Button danger onClick={showConfirmHandler}>
+                DELETE
+              </Button>
+            )}
           </div>
         </Card>
       </li>
