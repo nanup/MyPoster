@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useParams } from "react-router-dom";
 import Button from "../../shared/components/FormElements/Button";
@@ -25,25 +25,45 @@ const DUMMY_POSTERS = [
 const UpdatePoster = () => {
   const posterId = useParams().posterId;
 
-  const poster = DUMMY_POSTERS.find((p) => p.id === posterId);
-
-  const [formState, inputHandler] = useForm(
+  const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
-        value: poster.title,
-        isValid: true,
+        value: "",
+        isValid: false,
       },
       year: {
-        value: poster.year,
-        isValid: true,
+        value: "",
+        isValid: false,
       },
       image: {
-        value: poster.image,
-        isValid: true,
+        value: "",
+        isValid: false,
       },
     },
-    true
+    false
   );
+
+  const poster = DUMMY_POSTERS.find((p) => p.id === posterId);
+
+  useEffect(() => {
+    setFormData(
+      {
+        title: {
+          value: poster.title,
+          isValid: true,
+        },
+        year: {
+          value: poster.year,
+          isValid: true,
+        },
+        image: {
+          value: poster.image,
+          isValid: true,
+        },
+      },
+      true
+    );
+  }, [setFormData, poster]);
 
   const updatePosterHandler = (event) => {
     event.preventDefault();
@@ -52,49 +72,51 @@ const UpdatePoster = () => {
   };
 
   return (
-    <form onSubmit={updatePosterHandler} className='place-form'>
-      <Input
-        id='title'
-        element='input'
-        type='text'
-        label='Title *'
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText='Please enter a valid title.'
-        onInput={inputHandler}
-        value={formState.inputs.title.value}
-        validity={true}
-      />
-      <Input
-        id='year'
-        element='input'
-        type='number'
-        label='Year *'
-        validators={[
-          VALIDATOR_REQUIRE(),
-          VALIDATOR_MINLENGTH(4),
-          VALIDATOR_MAXLENGTH(4),
-        ]}
-        errorText='Please enter a valid year.'
-        onInput={inputHandler}
-        value={formState.inputs.year.value}
-        validity={true}
-      />
-      <Input
-        id='image'
-        element='input'
-        type='text'
-        label='Image Link *'
-        validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(4)]}
-        errorText='Please enter a valid title.'
-        onInput={inputHandler}
-        value={formState.inputs.image.value}
-        validity={true}
-      />
-      <p style={{ color: "red" }}>* fields are required</p>
-      <Button type='submit' disabled={!formState.isValid}>
-        Update Poster
-      </Button>
-    </form>
+    formState.inputs.title.value && (
+      <form onSubmit={updatePosterHandler} className='place-form'>
+        <Input
+          id='title'
+          element='input'
+          type='text'
+          label='Title *'
+          validators={[VALIDATOR_REQUIRE()]}
+          errorText='Please enter a valid title.'
+          onInput={inputHandler}
+          value={formState.inputs.title.value}
+          validity={true}
+        />
+        <Input
+          id='year'
+          element='input'
+          type='number'
+          label='Year *'
+          validators={[
+            VALIDATOR_REQUIRE(),
+            VALIDATOR_MINLENGTH(4),
+            VALIDATOR_MAXLENGTH(4),
+          ]}
+          errorText='Please enter a valid year.'
+          onInput={inputHandler}
+          value={formState.inputs.year.value}
+          validity={true}
+        />
+        <Input
+          id='image'
+          element='input'
+          type='text'
+          label='Image Link *'
+          validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(4)]}
+          errorText='Please enter a valid title.'
+          onInput={inputHandler}
+          value={formState.inputs.image.value}
+          validity={true}
+        />
+        <p style={{ color: "red" }}>* fields are required</p>
+        <Button type='submit' disabled={!formState.isValid}>
+          Update Poster
+        </Button>
+      </form>
+    )
   );
 };
 
