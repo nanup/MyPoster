@@ -46,23 +46,25 @@ const UpdatePoster = () => {
   const poster = DUMMY_POSTERS.find((p) => p.id === posterId);
 
   useEffect(() => {
-    setFormData(
-      {
-        title: {
-          value: poster.title,
-          isValid: true,
+    if (poster) {
+      setFormData(
+        {
+          title: {
+            value: poster.title,
+            isValid: true,
+          },
+          year: {
+            value: poster.year,
+            isValid: true,
+          },
+          image: {
+            value: poster.image,
+            isValid: true,
+          },
         },
-        year: {
-          value: poster.year,
-          isValid: true,
-        },
-        image: {
-          value: poster.image,
-          isValid: true,
-        },
-      },
-      true
-    );
+        true
+      );
+    }
   }, [setFormData, poster]);
 
   const updatePosterHandler = (event) => {
@@ -70,6 +72,14 @@ const UpdatePoster = () => {
 
     console.log(formState.inputs);
   };
+
+  if (!poster) {
+    return (
+      <div className="center">
+        <h2>Could not find the Poster!</h2>
+      </div>
+    );
+  }
 
   return (
     formState.inputs.title.value && (
