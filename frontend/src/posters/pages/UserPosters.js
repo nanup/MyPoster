@@ -10,7 +10,7 @@ const DUMMY_POSTERS = [
     description: "Wong Kar Wai's colorful masterpiece",
     image: "https://i.redd.it/c03fqf6peuca1.jpg",
     year: 2000,
-    trailerlink: "https://www.youtube.com/embed/m8GuedsQnWQ",
+    trailerLink: "https://www.youtube.com/embed/m8GuedsQnWQ",
     userid: "u1",
   },
 ];
