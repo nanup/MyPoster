@@ -3,12 +3,14 @@ const bodyParser = require("body-parser");
 
 const httpError = require("./models/http-error");
 const posterRoutes = require("./routes/poster-routes");
+const userRoutes = require("./routes/user-routes");
 
 const app = express();
 
 app.use(bodyParser.json());
 
 app.use("/api/posters", posterRoutes);
+app.use("/api/users", userRoutes);
 
 app.use((req, res, next) => {
   const error = new httpError("Route not found", 404);

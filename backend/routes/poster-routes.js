@@ -2,16 +2,16 @@ const express = require("express");
 
 const postersControllers = require("../controllers/poster-controllers");
 
-const router = express.Router();
+const posterRouter = express.Router();
 
-router.get("/:pid", postersControllers.getPosterById);
+posterRouter.get("/:pid", postersControllers.getPosterById);
 
-router.get("/user/:uid", postersControllers.getPostersByUserId);
+posterRouter.get("/user/:uid", postersControllers.getPostersByUserId);
 
-router.post("/", postersControllers.postPoster);
+posterRouter.post("/", postersControllers.postPoster);
 
-router.patch("/:pid", postersControllers.patchPosterById);
+posterRouter.patch("/:pid", postersControllers.patchPosterById);
 
-router.delete("/:pid", postersControllers.deletePosterById);
+posterRouter.delete("/:pid", postersControllers.deletePosterById);
 
-module.exports = router;
+module.exports = posterRouter;
