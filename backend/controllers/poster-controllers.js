@@ -1,4 +1,5 @@
 const uuid = require("uuid");
+const { validationResult } = require("express-validator");
 
 const httpError = require("../models/http-error");
 
@@ -44,6 +45,12 @@ const getPostersByUserId = (req, res, next) => {
 };
 
 const postPoster = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    throw new httpError("Invalid inputs", 422);
+  }
+
   const { userid, title, description, year, trailerLink, image } = req.body;
 
   const newPoster = {
@@ -62,6 +69,13 @@ const postPoster = (req, res, next) => {
 };
 
 const patchPosterById = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    console.log(errors);
+    throw new httpError("Invalid inputs", 422);
+  }
+
   const { title, image, year } = req.body;
   const id = req.params.pid;
 
