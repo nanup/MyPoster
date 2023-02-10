@@ -2,7 +2,7 @@ const uuid = require("uuid");
 
 const httpError = require("../models/http-error");
 
-const DUMMY_POSTERS = [
+let DUMMY_POSTERS = [
   {
     id: "p1",
     title: "In the Mood for Love",
@@ -76,7 +76,11 @@ const patchPosterById = (req, res, next) => {
   res.status(200).json({ poster: updatedPoster });
 };
 
-const deletePosterById = (req, res, next) => {};
+const deletePosterById = (req, res, next) => {
+  const id = req.params.pid;
+  DUMMY_POSTERS = DUMMY_POSTERS.filter((poster) => poster.id !== id);
+  res.status(200).json({ message: "Poster deleted." });
+};
 
 exports.getPosterById = getPosterById;
 exports.getPostersByUserId = getPostersByUserId;
