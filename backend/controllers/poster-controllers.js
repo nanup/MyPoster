@@ -38,15 +38,16 @@ const getPostersByUserId = async (req, res, next) => {
   const userId = req.params.uid;
   let posters = [];
   try {
-    const query = await Poster.find({ userid: userId });
-    posters = query.map((poster) => poster.toObject({ getters: true }));
+    const query = await Poster.find({ userId: userId });
+    posters = query.map((poster) => poster.toObject());
   } catch (err) {
     const error = new httpError(err.message, 404);
     return next(error);
   }
 
   if (posters.length === 0) {
-    throw new httpError("Could not find posters from provided user ID", 404);
+    const error =  new httpError("Could not find posters from provided user ID", 404);
+    return next(error);
   }
 
   res.json({ posters });
