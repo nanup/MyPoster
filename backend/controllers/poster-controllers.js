@@ -88,25 +88,37 @@ const patchPosterById = async (req, res, next) => {
 
   if (!errors.isEmpty()) {
     console.log(errors);
-    throw new httpError("Invalid inputs", 422);
+    const error = new httpError("Invalid inputs", 422);
+    return next(error);
   }
 
   const { title, image, year } = req.body;
   const id = req.params.pid;
 
   try {
-    Poster.findByIdAndUpdate(id, { title, image, year }, { new: true });
+    const poster = await Poster.findById(id);
+
+    poster.title = title;
+    poster.image = image;
+    poster.year = year;
+
+    await poster.save();
   } catch (err) {
     const error = new httpError(err.message, 404);
     return next(error);
   }
 
-  res.status(200).json({ poster: updatedPoster });
+  res.status(200).json({ poster: { id, title, image, year } });
 };
 
-const deletePosterById = (req, res, next) => {
+const deletePosterById = async (req, res, next) => {
   const id = req.params.pid;
-  DUMMY_POSTERS = DUMMY_POSTERS.filter((poster) => poster.id !== id);
+  try {
+    const poster = await Poster.findByIdAndDelete(id);
+  } catch (err) {
+    const error = new httpError(err.message, 404);
+    return next(error);
+  }
   res.status(200).json({ message: "Poster deleted." });
 };
 
