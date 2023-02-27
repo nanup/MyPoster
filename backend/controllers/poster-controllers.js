@@ -2,6 +2,7 @@ const uuid = require("uuid");
 const { validationResult } = require("express-validator");
 
 const httpError = require("../models/http-error");
+const Poster = require("../models/poster");
 
 let DUMMY_POSTERS = [
   {
@@ -44,7 +45,7 @@ const getPostersByUserId = (req, res, next) => {
   res.json({ posters });
 };
 
-const postPoster = (req, res, next) => {
+const postPoster = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -53,17 +54,21 @@ const postPoster = (req, res, next) => {
 
   const { userid, title, description, year, trailerLink, image } = req.body;
 
-  const newPoster = {
-    title: title,
-    description: description,
-    year: parseInt(year, 10),
-    trailerLink: trailerLink,
-    image: image,
+  const newPoster = new Poster({
     id: uuid.v4(),
-    userid: userid,
-  };
+    userid,
+    title,
+    description,
+    year,
+    trailerLink,
+    image,
+  });
 
-  DUMMY_POSTERS.push(newPoster);
+  try {
+    await newPoster.save();
+  } catch (err) {
+    throw new httpError("Creating new poster failed", 500);
+  }
 
   res.status(201).json({ poster: newPoster });
 };

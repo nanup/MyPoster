@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 const httpError = require("./models/http-error");
 const posterRoutes = require("./routes/poster-routes");
@@ -26,4 +27,11 @@ app.use((error, req, res, next) => {
   }
 });
 
-app.listen(5000);
+mongoose
+  .connect(
+    "mongodb+srv://nanup:8UT2oWOTKluaMgH1@cluster0.mdhqaux.mongodb.net/MyPoster?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    app.listen(5000);
+  })
+  .catch((error) => console.log(error));
