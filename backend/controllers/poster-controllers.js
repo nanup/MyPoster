@@ -46,7 +46,10 @@ const getPostersByUserId = async (req, res, next) => {
   }
 
   if (posters.length === 0) {
-    const error =  new httpError("Could not find posters from provided user ID", 404);
+    const error = new httpError(
+      "Could not find posters from provided user ID",
+      404
+    );
     return next(error);
   }
 
@@ -80,7 +83,7 @@ const postPoster = async (req, res, next) => {
   res.status(201).json({ poster: newPoster });
 };
 
-const patchPosterById = (req, res, next) => {
+const patchPosterById = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -91,13 +94,12 @@ const patchPosterById = (req, res, next) => {
   const { title, image, year } = req.body;
   const id = req.params.pid;
 
-  const updatedPoster = { ...DUMMY_POSTERS.find((poster) => poster.id === id) };
-  const posterIndex = DUMMY_POSTERS.findIndex((poster) => poster.id === id);
-  updatedPoster.title = title;
-  updatedPoster.year = year;
-  updatedPoster.image = image;
-
-  DUMMY_POSTERS[posterIndex] = updatedPoster;
+  try {
+    Poster.findByIdAndUpdate(id, { title, image, year }, { new: true });
+  } catch (err) {
+    const error = new httpError(err.message, 404);
+    return next(error);
+  }
 
   res.status(200).json({ poster: updatedPoster });
 };
