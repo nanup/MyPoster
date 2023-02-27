@@ -52,11 +52,10 @@ const postPoster = async (req, res, next) => {
     throw new httpError("Invalid inputs", 422);
   }
 
-  const { userid, title, description, year, trailerLink, image } = req.body;
+  const { userId, title, description, year, trailerLink, image } = req.body;
 
   const newPoster = new Poster({
-    id: uuid.v4(),
-    userid,
+    userId,
     title,
     description,
     year,
@@ -67,7 +66,7 @@ const postPoster = async (req, res, next) => {
   try {
     await newPoster.save();
   } catch (err) {
-    throw new httpError("Creating new poster failed", 500);
+    throw new httpError(err.message, 500);
   }
 
   res.status(201).json({ poster: newPoster });
