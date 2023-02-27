@@ -16,17 +16,22 @@ let DUMMY_POSTERS = [
   },
 ];
 
-const getPosterById = (req, res, next) => {
+const getPosterById = async (req, res, next) => {
   const id = req.params.pid;
-  const poster = DUMMY_POSTERS.find((poster) => {
-    return poster.id === id;
-  });
 
-  if (!poster) {
-    throw new httpError("Could not find provided ID", 404);
+  let poster;
+  try {
+    poster = await Poster.findById(id);
+  } catch (err) {
+    const error = new httpError(err.message, 404);
+    return next(error);
   }
 
-  res.json(poster);
+  if (!poster) {
+    throw new httpError("Poster not found", 404);
+  }
+
+  res.json({ poster: poster.toObject({ getters: true }) });
 };
 
 const getPostersByUserId = (req, res, next) => {
