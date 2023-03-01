@@ -29,7 +29,7 @@ const getPosterById = async (req, res, next) => {
   }
 
   if (!poster) {
-    return next (new httpError("Poster not found", 404));
+    return next(new httpError("Poster not found", 404));
   }
 
   res.json({ poster: poster.toObject({ getters: true }) });
@@ -134,10 +134,31 @@ const patchPosterById = async (req, res, next) => {
 
 const deletePosterById = async (req, res, next) => {
   const id = req.params.pid;
+
+  let poster;
   try {
-    const poster = await Poster.findByIdAndDelete(id);
+    poster = await Poster.findByIdAndDelete(id).populate("userId");
   } catch (err) {
     const error = new httpError(err.message, 404);
+    return next(error);
+  }
+
+  if (!poster) {
+    const error = new httpError("Poster not found", 404);
+    return next(error);
+  }
+
+  try {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    await poster.remove({ session });
+    poster.userId.posters.pull(poster);
+    await poster.userId.save({ session });
+
+    await session.commitTransaction();
+  } catch (err) {
+    const error = new httpError(err.message, 500);
     return next(error);
   }
   res.status(200).json({ message: "Poster deleted." });
