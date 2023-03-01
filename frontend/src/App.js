@@ -1,18 +1,18 @@
-import React, { useState, useCallback } from "react";
 import {
-  BrowserRouter as Router,
   Navigate,
   Route,
+  BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
+import React, { useCallback, useState } from "react";
 
+import Auth from "./user/pages/Auth";
+import { AuthContext } from "./shared/components/FormElements/context/auth-context";
+import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import NewPoster from "./posters/pages/NewPoster";
 import UpdatePoster from "./posters/pages/UpdatePoster";
 import UserPosters from "./posters/pages/UserPosters";
-import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import Auth from "./user/pages/Auth";
 import Users from "./user/pages/Users";
-import { AuthContext } from "./shared/components/FormElements/context/auth-contex";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

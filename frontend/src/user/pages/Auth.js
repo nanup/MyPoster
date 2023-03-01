@@ -7,19 +7,19 @@ import {
   VALIDATOR_REQUIRE,
 } from "./../../shared/components/util/validators";
 
-import { AuthContext } from "./../../shared/components/FormElements/context/auth-contex";
+import { AuthContext } from "../../shared/components/FormElements/context/auth-context";
 import Button from "../../shared/components/FormElements/Button";
 import Card from "./../../shared/components/UIElements/Card";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import Input from "../../shared/components/FormElements/Input";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import useForm from "../../shared/hooks/form-hook";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const Auth = () => {
   const ctx = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
@@ -33,6 +33,8 @@ const Auth = () => {
     },
     false
   );
+
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const switchHandler = (event) => {
     if (!isLogin) {
@@ -63,65 +65,41 @@ const Auth = () => {
 
     if (isLogin) {
       try {
-        setIsLoading(true);
-        const response = await fetch("http://localhost:5000/api/users/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
+        const responseData = await sendRequest(
+          "http://localhost:5000/api/users/login",
+          "POST",
+          {
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
-          }),
-        });
+          },
+          { "Content-Type": "application/json" }
+        );
 
-        const json = await response.json();
-
-        if (response.ok) {
-          setIsLoading(false);
-          ctx.login();
-          console.log(json);
-        } else {
-          throw new Error(json.errorMessage);
-        }
-      } catch (err) {
-        setError(err.message);
-        setIsLoading(false);
-      }
+        console.log("here");
+        ctx.login();
+        console.log(responseData);
+      } catch (err) {}
     } else {
       try {
-        setIsLoading(true);
-        const response = await fetch("http://localhost:5000/api/users/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: formState.inputs.username.value,
+        const responseData = sendRequest(
+          "http://localhost:5000/api/users/signup",
+          "POST",
+          {
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
-          }),
-        });
+            name: formState.inputs.username.value,
+          },
+          { "Content-Type": "application/json" }
+        );
 
-        const responseData = await response.json();
-
-        if (responseData.ok) {
-          setIsLoading(false);
-          ctx.login();
-          console.log(responseData);
-        } else {
-          throw new Error(responseData.errorMessage);
-        }
-      } catch (err) {
-        setError(err.message);
-        setIsLoading(false);
-      }
+        ctx.login();
+      } catch (err) {}
     }
   };
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={() => setError("")} />
+      <ErrorModal error={error} onClear={clearError} />
       <Card className='authentication'>
         {isLoading && <LoadingSpinner asOverlay />}
         <h2>Login Required</h2>
