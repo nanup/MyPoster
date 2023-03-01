@@ -1,8 +1,9 @@
-const uuid = require("uuid");
+const mongoose = require("mongoose");
 const { validationResult } = require("express-validator");
 
 const httpError = require("../models/http-error");
 const Poster = require("../models/poster");
+const User = require("../models/user");
 
 let DUMMY_POSTERS = [
   {
@@ -28,7 +29,7 @@ const getPosterById = async (req, res, next) => {
   }
 
   if (!poster) {
-    throw new httpError("Poster not found", 404);
+    return next (new httpError("Poster not found", 404));
   }
 
   res.json({ poster: poster.toObject({ getters: true }) });
@@ -74,8 +75,28 @@ const postPoster = async (req, res, next) => {
     image,
   });
 
+  let hasUser;
   try {
-    await newPoster.save();
+    hasUser = await User.findById(userId);
+  } catch (err) {
+    const error = new httpError(err.message, 500);
+    return next(error);
+  }
+
+  if (!hasUser) {
+    const error = new httpError("User not found", 404);
+    return next(error);
+  }
+
+  try {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    await newPoster.save({ session });
+
+    hasUser.posters.push(newPoster);
+    await hasUser.save({ session });
+
+    await session.commitTransaction();
   } catch (err) {
     throw new httpError(err.message, 500);
   }
