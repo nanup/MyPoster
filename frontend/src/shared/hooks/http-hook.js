@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-export const useHttpClient = async () => {
-  const [isLoading, setIsLoading] = useState(true);
+export const useHttpClient = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   const activeHttp = useRef([]);
