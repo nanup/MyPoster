@@ -64,7 +64,7 @@ const loginUser = async (req, res, next) => {
   if (!hasUser || hasUser.password !== password) {
     return next(new httpError("User credentials are wrong", 401));
   } else {
-    res.json({ message: "logged in" });
+    res.json({ user: hasUser.toObject({ getters: true }) });
   }
 };
 

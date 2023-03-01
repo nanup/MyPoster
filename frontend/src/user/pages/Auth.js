@@ -74,12 +74,12 @@ const Auth = () => {
           }),
           { "Content-Type": "application/json" }
         );
-        ctx.login();
+        ctx.login(responseData.user.id);
         console.log(responseData);
       } catch (err) {}
     } else {
       try {
-        const responseData = sendRequest(
+        const responseData = await sendRequest(
           "http://localhost:5000/api/users/signup",
           "POST",
           {
@@ -90,7 +90,7 @@ const Auth = () => {
           { "Content-Type": "application/json" }
         );
 
-        ctx.login();
+        ctx.login(responseData.user.id);
       } catch (err) {}
     }
   };

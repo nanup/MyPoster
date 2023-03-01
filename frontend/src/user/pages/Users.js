@@ -24,7 +24,7 @@ const Users = () => {
     };
 
     fetchUsers();
-  }, []);
+  }, [sendRequest]);
 
   return (
     <React.Fragment>
