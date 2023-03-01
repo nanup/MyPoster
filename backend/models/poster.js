@@ -20,8 +20,9 @@ const posterSchema = new mongoose.Schema({
     type: String,
   },
   userId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true,
+    ref: "User",
   },
 });
 

@@ -33,7 +33,7 @@ const signupUser = async (req, res, next) => {
     return next(new httpError("Invalid inputs", 422));
   }
 
-  const { name, email, password, posters } = req.body;
+  const { name, email, password } = req.body;
 
   let existingUser;
   try {
@@ -53,7 +53,7 @@ const signupUser = async (req, res, next) => {
     email,
     image: "https://picsum.photos/200/300",
     password,
-    posters,
+    posters: [],
   });
 
   try {

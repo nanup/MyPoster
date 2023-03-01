@@ -21,10 +21,13 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  posters: {
-    type: String,
-    required: true,
-  }
+  posters: [
+    {
+      type: mongoose.Types.ObjectId,
+      required: true,
+      ref: "Poster",
+    },
+  ],
 });
 
 userSchema.plugin(validator);
