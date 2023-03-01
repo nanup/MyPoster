@@ -1,15 +1,17 @@
+import "./Auth.css";
+
 import React, { useContext, useState } from "react";
-import Button from "../../shared/components/FormElements/Button";
-import Input from "../../shared/components/FormElements/Input";
-import useForm from "../../shared/hooks/form-hook";
-import Card from "./../../shared/components/UIElements/Card";
 import {
-  VALIDATOR_REQUIRE,
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
 } from "./../../shared/components/util/validators";
-import "./Auth.css";
+
 import { AuthContext } from "./../../shared/components/FormElements/context/auth-contex";
+import Button from "../../shared/components/FormElements/Button";
+import Card from "./../../shared/components/UIElements/Card";
+import Input from "../../shared/components/FormElements/Input";
+import useForm from "../../shared/hooks/form-hook";
 
 const Auth = () => {
   const ctx = useContext(AuthContext);
@@ -52,10 +54,44 @@ const Auth = () => {
     setIsLogin((prev) => !prev);
   };
 
-  const loginHandler = (event) => {
+  const loginHandler = async (event) => {
     event.preventDefault();
-    ctx.login();
-    
+
+    if (isLogin) {
+      try {
+        const response = await fetch("http://localhost:5000/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const response = await fetch("http://localhost:5000/api/users/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formState.inputs.username.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   return (
