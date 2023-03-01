@@ -57,17 +57,13 @@ const signupUser = async (req, res, next) => {
   res.status(201).json({ user: newUser.toObject({ getters: true }) });
 };
 
-const loginUser = (req, res, next) => {
+const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const hasUser = DUMMY_USERS.find((u) => u.email === email);
-
-  if (hasUser) {
-    throw new httpError("Email already in use", 462);
-  }
+  const hasUser = await User.findOne({ email });
 
   if (!hasUser || hasUser.password !== password) {
-    throw new httpError("User doesn't exist", 401);
+    return next(new httpError("User credentials are wrong", 401));
   } else {
     res.json({ message: "logged in" });
   }
