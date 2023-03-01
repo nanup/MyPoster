@@ -60,7 +60,7 @@ const postPoster = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    throw new httpError("Invalid inputs", 422);
+    return next(httpError("Invalid inputs", 422));
   }
 
   const { userId, title, description, year, trailerLink, image } = req.body;
