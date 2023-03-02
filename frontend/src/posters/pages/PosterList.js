@@ -1,10 +1,9 @@
-import React from "react";
-import PosterListItem from "./PosterListItem";
+import "./PosterList.css";
 
 import Button from "../../shared/components/FormElements/Button";
 import Card from "../../shared/components/UIElements/Card";
-
-import "./PosterList.css";
+import PosterListItem from "./PosterListItem";
+import React from "react";
 
 const PosterList = (props) => {
   if (props.posters.length !== 0) {
@@ -12,8 +11,8 @@ const PosterList = (props) => {
       <ul className='place-list'>
         {props.posters.map((poster) => (
           <PosterListItem
-            key={poster.id}
-            id={poster.id}
+            key={poster._id}
+            id={poster._id}
             image={poster.image}
             title={poster.title}
             year={poster.year}

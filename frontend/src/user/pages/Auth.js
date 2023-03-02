@@ -82,15 +82,16 @@ const Auth = () => {
         const responseData = await sendRequest(
           "http://localhost:5000/api/users/signup",
           "POST",
-          {
+          JSON.stringify({
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
             name: formState.inputs.username.value,
-          },
+          }),
           { "Content-Type": "application/json" }
         );
 
         ctx.login(responseData.user.id);
+        console.log(responseData);
       } catch (err) {}
     }
   };

@@ -66,7 +66,8 @@ const NewPoster = () => {
         { "Content-Type": "application/json" }
       );
 
-        navigate("/");
+      navigate("/");
+      console.log(responseData);
     } catch (err) {
       console.log(err);
     }

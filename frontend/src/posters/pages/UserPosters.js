@@ -1,26 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import PosterList from "./PosterList";
+import { useHttpClient } from "./../../shared/hooks/http-hook";
 import { useParams } from "react-router-dom";
 
-import PosterList from "./PosterList";
-
-const DUMMY_POSTERS = [
-  {
-    id: "p1",
-    title: "In the Mood for Love",
-    description: "Wong Kar Wai's colorful masterpiece",
-    image: "https://i.redd.it/c03fqf6peuca1.jpg",
-    year: 2000,
-    trailerLink: "https://www.youtube.com/embed/m8GuedsQnWQ",
-    userid: "u1",
-  },
-];
-
 const UserPosters = () => {
-  const userid = useParams().uid;
-  const userPosters = DUMMY_POSTERS.filter(
-    (poster) => poster.userid === userid
+  const [posters, setPosters] = useState([]);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
+  const params = useParams();
+  const userId = params.uid;
+  useEffect(() => {
+    const fetchPosters = async () => {
+      try {
+        const responseData = await sendRequest(
+          `http://localhost:5000/api/posters/user/${userId}`,
+          "GET",
+          null,
+          {}
+        );
+
+        if (responseData) {
+          setPosters(responseData.posters);
+        } else {
+          throw new Error("Something went wrong");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchPosters();
+  }, [sendRequest, userId]);
+
+  const userPosters = posters.filter((poster) => poster.userId === userId);
+  return (
+    <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && <LoadingSpinner asOverlay />}
+      {!isLoading && posters && <PosterList posters={userPosters} />}
+    </React.Fragment>
   );
-  return <PosterList posters={userPosters} />;
 };
 
 export default UserPosters;
