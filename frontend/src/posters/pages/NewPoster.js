@@ -52,7 +52,7 @@ const NewPoster = () => {
     event.preventDefault();
 
     try {
-      const responseData = await sendRequest(
+      await sendRequest(
         "http://localhost:5000/api/posters",
         "POST",
         JSON.stringify({
