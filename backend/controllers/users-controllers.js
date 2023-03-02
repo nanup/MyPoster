@@ -1,6 +1,7 @@
 const uuid = require("uuid");
 const { validationResult } = require("express-validator");
-
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const httpError = require("../models/http-error");
 
@@ -39,11 +40,19 @@ const signupUser = async (req, res, next) => {
     return next(error);
   }
 
+  let hashedPassword;
+  try {
+    hashedPassword = await bcrypt.hash(password, 12);
+  } catch (err) {
+    const error = new httpError("Signup failed, please try again later", 500);
+    return next(error);
+  }
+
   const newUser = new User({
     name,
     email,
     image: req.file.path,
-    password,
+    password: hashedPassword,
     posters: [],
   });
   try {
@@ -52,7 +61,21 @@ const signupUser = async (req, res, next) => {
     return next(new httpError(err.message, 500));
   }
 
-  res.status(201).json({ user: newUser.toObject({ getters: true }) });
+  let token;
+  try {
+    token = jwt.sign(
+      { userId: newUser.id, email: newUser.email },
+      "dontsharethis",
+      { expiresIn: "1h" }
+    );
+  } catch (err) {
+    const error = new httpError("Signup failed, please try again later", 500);
+    return next(error);
+  }
+
+  res
+    .status(201)
+    .json({ userId: newUser.id, email: newUser.email, token: token });
 };
 
 const loginUser = async (req, res, next) => {
@@ -63,7 +86,28 @@ const loginUser = async (req, res, next) => {
   if (!hasUser || hasUser.password !== password) {
     return next(new httpError("User credentials are wrong", 401));
   } else {
-    res.json({ user: hasUser.toObject({ getters: true }) });
+    let isValidPassword = false;
+    isValidPassword = await bcrypt.compare(password, hasUser.password);
+    if (!isValidPassword) {
+      return next(new httpError("User credentials are wrong", 401));
+    } else {
+      let token;
+      try {
+        token = jwt.sign(
+          { userId: hasUser.id, email: hasUser.email },
+          "dontsharethis",
+          { expiresIn: "1h" }
+        );
+      } catch (err) {
+        const error = new httpError(
+          "Logging in failed, please try again later",
+          500
+        );
+        return next(error);
+      }
+
+      res.json({ userId: hasUser.id, email: hasUser.email, token: token });
+    }
   }
 };
 
