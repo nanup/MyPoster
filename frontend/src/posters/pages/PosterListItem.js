@@ -54,12 +54,15 @@ const PosterListItem = (props) => {
         footerClass={"place-item__modal-actions"}
         footer={<Button onClick={hideTrailerHandler}>Close</Button>}>
         <div className='map-container'>
-          <iframe
-            title='YouTube Trailer'
-            height='275'
-            src={props.trailerLink}
-            frameBorder='0'
-          />
+          {props.trailerUrl && (
+            <iframe
+              title='YouTube Trailer'
+              height='275'
+              src={props.trailerLink}
+              frameBorder='0'
+            />
+          )}
+          {!props.trailerUrl && <div>No trailer found</div>}
         </div>
       </Modal>
       <Modal

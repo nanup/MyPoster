@@ -36,6 +36,10 @@ const UpdatePoster = () => {
         value: "",
         isValid: false,
       },
+      trailerLink: {
+        value: "",
+        isValid: false,
+      },
     },
     false
   );
@@ -93,6 +97,7 @@ const UpdatePoster = () => {
           title: formState.inputs.title.value,
           year: formState.inputs.year.value,
           image: formState.inputs.image.value,
+          trailerLink: formState.inputs.trailerLink.value,
         }),
         {
           "Content-Type": "application/json",
@@ -153,6 +158,17 @@ const UpdatePoster = () => {
             errorText='Please enter a valid title.'
             onInput={inputHandler}
             value={formState.inputs.image.value}
+            validity={true}
+          />
+          <Input
+            id='trailerLink'
+            element='input'
+            type='text'
+            label='Trailer Embed Link'
+            validators={[]}
+            errorText='Please enter a valid embed link.'
+            onInput={inputHandler}
+            value={formState.inputs.trailerLink.value}
             validity={true}
           />
           <p style={{ color: "red" }}>* fields are required</p>

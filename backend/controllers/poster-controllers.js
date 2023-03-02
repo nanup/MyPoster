@@ -101,7 +101,7 @@ const patchPosterById = async (req, res, next) => {
     return next(error);
   }
 
-  const { title, image, year } = req.body;
+  const { title, image, year, trailerLink } = req.body;
   const id = req.params.pid;
 
   try {
@@ -110,6 +110,7 @@ const patchPosterById = async (req, res, next) => {
     poster.title = title;
     poster.image = image;
     poster.year = year;
+    poster.trailerLink = trailerLink;
 
     await poster.save();
   } catch (err) {
@@ -117,7 +118,7 @@ const patchPosterById = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({ poster: { id, title, image, year } });
+  res.status(200).json({ poster: { id, title, image, year, trailerLink } });
 };
 
 const deletePosterById = async (req, res, next) => {
