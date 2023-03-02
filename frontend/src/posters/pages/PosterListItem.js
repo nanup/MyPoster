@@ -101,10 +101,10 @@ const PosterListItem = (props) => {
             <Button onClick={showTrailerHandler} inverse>
               VIEW TRAILER
             </Button>
-            {ctx.userId === props.userId && (
+            {ctx.userId === props.userid && (
               <Button to={`/posters/${props.id}`}>EDIT</Button>
             )}
-            {ctx.userId === props.userId && (
+            {ctx.userId === props.userid && (
               <Button danger onClick={showConfirmHandler}>
                 DELETE
               </Button>
