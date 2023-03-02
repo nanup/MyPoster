@@ -1,29 +1,26 @@
-import React, { useEffect } from "react";
-
-import { useParams } from "react-router-dom";
-import Button from "../../shared/components/FormElements/Button";
-import Input from "../../shared/components/FormElements/Input";
+import React, { useContext, useEffect, useState } from "react";
 import {
   VALIDATOR_MAXLENGTH,
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from "./../../shared/components/util/validators";
-import useForm from "./../../shared/hooks/form-hook";
 
-const DUMMY_POSTERS = [
-  {
-    id: "p1",
-    title: "In the Mood for Love",
-    description: "Wong Kar Wai's colorful masterpiece",
-    image: "https://i.redd.it/c03fqf6peuca1.jpg",
-    year: 2000,
-    trailerLink: "https://www.youtube.com/embed/m8GuedsQnWQ",
-    userid: "u1",
-  },
-];
+import { AuthContext } from "./../../shared/components/FormElements/context/auth-context";
+import Button from "../../shared/components/FormElements/Button";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import Input from "../../shared/components/FormElements/Input";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import useForm from "./../../shared/hooks/form-hook";
+import { useHttpClient } from "../../shared/hooks/http-hook";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const UpdatePoster = () => {
   const posterId = useParams().posterId;
+  const [poster, setPoster] = useState();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const navigate = useNavigate();
+  const auth = useContext(AuthContext);
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -43,90 +40,120 @@ const UpdatePoster = () => {
     false
   );
 
-  const poster = DUMMY_POSTERS.find((p) => p.id === posterId);
-
   useEffect(() => {
-    if (poster) {
-      setFormData(
-        {
-          title: {
-            value: poster.title,
-            isValid: true,
-          },
-          year: {
-            value: poster.year,
-            isValid: true,
-          },
-          image: {
-            value: poster.image,
-            isValid: true,
-          },
-        },
-        true
-      );
-    }
-  }, [setFormData, poster]);
+    const fetchPoster = async () => {
+      try {
+        const responseData = await sendRequest(
+          "http://localhost:5000/api/posters/" + posterId,
+          "GET",
+          null,
+          {}
+        );
 
-  const updatePosterHandler = (event) => {
+        setPoster(responseData.poster);
+        setFormData(
+          {
+            title: {
+              value: responseData.poster.title,
+              isValid: true,
+            },
+            year: {
+              value: responseData.poster.year,
+              isValid: true,
+            },
+            image: {
+              value: responseData.poster.image,
+              isValid: true,
+            },
+          },
+          true
+        );
+      } catch (err) {}
+    };
+
+    fetchPoster();
+  }, [posterId, sendRequest, setFormData]);
+
+  const updatePosterHandler = async (event) => {
     event.preventDefault();
 
-    console.log(formState.inputs);
+    try {
+      const responseData = await sendRequest(
+        "http://localhost:5000/api/posters/" + posterId,
+        "PATCH",
+        JSON.stringify({
+          title: formState.inputs.title.value,
+          year: formState.inputs.year.value,
+          image: formState.inputs.image.value,
+        }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+      navigate("/" + auth.userId + "/posters");
+
+      console.log(responseData);
+    } catch (err) {}
   };
 
   if (!poster) {
     return (
-      <div className="center">
+      <div className='center'>
         <h2>Could not find the Poster!</h2>
       </div>
     );
   }
 
   return (
-    formState.inputs.title.value && (
-      <form onSubmit={updatePosterHandler} className='place-form'>
-        <Input
-          id='title'
-          element='input'
-          type='text'
-          label='Title *'
-          validators={[VALIDATOR_REQUIRE()]}
-          errorText='Please enter a valid title.'
-          onInput={inputHandler}
-          value={formState.inputs.title.value}
-          validity={true}
-        />
-        <Input
-          id='year'
-          element='input'
-          type='number'
-          label='Year *'
-          validators={[
-            VALIDATOR_REQUIRE(),
-            VALIDATOR_MINLENGTH(4),
-            VALIDATOR_MAXLENGTH(4),
-          ]}
-          errorText='Please enter a valid year.'
-          onInput={inputHandler}
-          value={formState.inputs.year.value}
-          validity={true}
-        />
-        <Input
-          id='image'
-          element='input'
-          type='text'
-          label='Image Link *'
-          validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(4)]}
-          errorText='Please enter a valid title.'
-          onInput={inputHandler}
-          value={formState.inputs.image.value}
-          validity={true}
-        />
-        <p style={{ color: "red" }}>* fields are required</p>
-        <Button type='submit' disabled={!formState.isValid}>
-          Update Poster
-        </Button>
-      </form>
-    )
+    <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && <LoadingSpinner asOverlay />}
+      {formState.inputs.title.value && !isLoading && (
+        <form onSubmit={updatePosterHandler} className='place-form'>
+          <Input
+            id='title'
+            element='input'
+            type='text'
+            label='Title *'
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText='Please enter a valid title.'
+            onInput={inputHandler}
+            value={formState.inputs.title.value}
+            validity={true}
+          />
+          <Input
+            id='year'
+            element='input'
+            type='number'
+            label='Year *'
+            validators={[
+              VALIDATOR_REQUIRE(),
+              VALIDATOR_MINLENGTH(4),
+              VALIDATOR_MAXLENGTH(4),
+            ]}
+            errorText='Please enter a valid year.'
+            onInput={inputHandler}
+            value={formState.inputs.year.value}
+            validity={true}
+          />
+          <Input
+            id='image'
+            element='input'
+            type='text'
+            label='Image Link *'
+            validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(4)]}
+            errorText='Please enter a valid title.'
+            onInput={inputHandler}
+            value={formState.inputs.image.value}
+            validity={true}
+          />
+          <p style={{ color: "red" }}>* fields are required</p>
+          <Button type='submit' disabled={!formState.isValid}>
+            Update Poster
+          </Button>
+        </form>
+      )}
+    </React.Fragment>
   );
 };
 
