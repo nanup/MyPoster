@@ -42,11 +42,10 @@ const signupUser = async (req, res, next) => {
   const newUser = new User({
     name,
     email,
-    image: "https://picsum.photos/200/300",
+    image: req.file.path,
     password,
     posters: [],
   });
-
   try {
     await newUser.save();
   } catch (err) {
