@@ -104,8 +104,6 @@ const UpdatePoster = () => {
         }
       );
       navigate("/" + auth.userId + "/posters");
-
-      console.log(responseData);
     } catch (err) {}
   };
 
