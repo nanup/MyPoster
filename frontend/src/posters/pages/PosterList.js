@@ -19,6 +19,7 @@ const PosterList = (props) => {
             description={poster.description}
             trailerLink={poster.trailerLink}
             userid={poster.userid}
+            onDelete={props.onDelete(props.id)}
           />
         ))}
       </ul>
@@ -28,7 +29,7 @@ const PosterList = (props) => {
       <div className='place-list center'>
         <Card>
           <h2>No posters.</h2>
-          <Button to="/posters/new">Share Poster</Button>
+          <Button to='/posters/new'>Share Poster</Button>
         </Card>
       </div>
     );

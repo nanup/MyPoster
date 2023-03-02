@@ -5,12 +5,16 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "./../../shared/components/FormElements/context/auth-context";
 import Button from "../../shared/components/FormElements/Button";
 import Card from "../../shared/components/UIElements/Card";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import Modal from "../../shared/components/UIElements/Modal";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const PosterListItem = (props) => {
   const ctx = useContext(AuthContext);
   const [showTrailer, setShowTrailer] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const showTrailerHandler = () => {
     setShowTrailer(true);
@@ -28,13 +32,20 @@ const PosterListItem = (props) => {
     setShowConfirm(false);
   };
 
-  const confirmShowConfirm = () => {
+  const confirmShowConfirm = async () => {
+    await sendRequest(
+      "http://localhost:5000/api/posters/" + props.id,
+      "DELETE",
+      null,
+      {}
+    );
+    props.onDelete();
     setShowConfirm(false);
-    console.log("DELETING...");
   };
 
   return (
     <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
       <Modal
         show={showTrailer}
         onCancel={hideTrailerHandler}
@@ -77,6 +88,7 @@ const PosterListItem = (props) => {
       </Modal>
       <li className='place-item'>
         <Card className='place-item__content'>
+          {isLoading && <LoadingSpinner asOverlay />}
           <div className='place-item__image'>
             <img src={props.image} alt={props.title} />
           </div>
@@ -89,10 +101,10 @@ const PosterListItem = (props) => {
             <Button onClick={showTrailerHandler} inverse>
               VIEW TRAILER
             </Button>
-            {ctx.isLoggedIn && (
+            {ctx.userId === props.userId && (
               <Button to={`/posters/${props.id}`}>EDIT</Button>
             )}
-            {ctx.isLoggedIn && (
+            {ctx.userId === props.userId && (
               <Button danger onClick={showConfirmHandler}>
                 DELETE
               </Button>

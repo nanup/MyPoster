@@ -34,12 +34,18 @@ const UserPosters = () => {
     fetchPosters();
   }, [sendRequest, userId]);
 
+  const deleteHandler = (deletedId) => {
+    setPosters((prev) => prev.filter((poster) => poster.id !== deletedId));
+  };
+
   const userPosters = posters.filter((poster) => poster.userId === userId);
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
       {isLoading && <LoadingSpinner asOverlay />}
-      {!isLoading && posters && <PosterList posters={userPosters} />}
+      {!isLoading && posters && (
+        <PosterList posters={userPosters} onDelete={deleteHandler} />
+      )}
     </React.Fragment>
   );
 };

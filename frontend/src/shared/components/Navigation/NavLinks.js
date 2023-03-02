@@ -19,7 +19,7 @@ const NavLinks = (props) => {
       </li>
       {ctx.isLoggedIn && (
         <li>
-          <NavLink to='/u1/posters'>MY POSTERS</NavLink>
+          <NavLink to={`/${ctx.userId}/posters`}>MY POSTERS</NavLink>
         </li>
       )}
       {ctx.isLoggedIn && (
@@ -34,9 +34,7 @@ const NavLinks = (props) => {
       )}
       {ctx.isLoggedIn && (
         <li>
-          <Button onClick={logoutHandler}>
-            LOGOUT
-          </Button>
+          <Button onClick={logoutHandler}>LOGOUT</Button>
         </li>
       )}
     </ul>
