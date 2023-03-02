@@ -67,7 +67,6 @@ const NewPoster = () => {
       );
 
       navigate("/");
-      console.log(responseData);
     } catch (err) {
       console.log(err);
     }

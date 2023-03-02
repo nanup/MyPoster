@@ -1,8 +1,8 @@
+import "./Input.css";
+
 import React, { useEffect, useReducer } from "react";
 
 import { validate } from "../util/validators";
-
-import "./Input.css";
 
 const inputReducer = (state, action) => {
   switch (action.type) {
@@ -33,14 +33,6 @@ const Input = (props) => {
   const { value, isValid } = inputState;
 
   useEffect(() => {
-    if (id === "trailerLink" || id === "description") {
-      touchHandler();
-      dispatchFn({
-        type: "CHANGE",
-        val: "",
-        validators: [],
-      });
-    }
     onInput(id, value, isValid);
   }, [id, value, isValid, onInput]);
 
@@ -57,6 +49,15 @@ const Input = (props) => {
       type: "TOUCH",
     });
   };
+
+  if (!inputState.isTouched && (id === "trailerLink" || id === "description")) {
+    touchHandler();
+    dispatchFn({
+      type: "CHANGE",
+      val: "",
+      validators: [],
+    });
+  }
 
   const element =
     props.element === "input" ? (
