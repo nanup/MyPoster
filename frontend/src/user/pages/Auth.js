@@ -78,8 +78,7 @@ const Auth = () => {
           { "Content-Type": "application/json" }
         );
 
-        ctx.login();
-        ctx.userId = responseData.userId;
+        ctx.login(responseData.user.id);
       } catch (err) {}
     } else {
       try {

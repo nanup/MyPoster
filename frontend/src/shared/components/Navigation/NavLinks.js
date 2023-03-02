@@ -9,6 +9,8 @@ import { NavLink } from "react-router-dom";
 const NavLinks = (props) => {
   const ctx = useContext(AuthContext);
 
+  console.log(ctx)
+
   const logoutHandler = () => {
     ctx.logout();
   };
