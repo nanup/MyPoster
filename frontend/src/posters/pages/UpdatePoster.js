@@ -65,6 +65,14 @@ const UpdatePoster = () => {
               value: responseData.poster.image,
               isValid: true,
             },
+            trailerLink: {
+              value: responseData.poster.trailerLink,
+              isValid: true,
+            },
+            description: {
+              value: responseData.poster.description,
+              isValid: true,
+            },
           },
           true
         );

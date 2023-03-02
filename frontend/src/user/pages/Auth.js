@@ -15,10 +15,13 @@ import Input from "../../shared/components/FormElements/Input";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import useForm from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const ctx = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
+
+  const navigate = useNavigate();
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -74,8 +77,9 @@ const Auth = () => {
           }),
           { "Content-Type": "application/json" }
         );
-        ctx.login(responseData.user.id);
-        console.log(responseData);
+
+        ctx.login();
+        ctx.userId = responseData.userId;
       } catch (err) {}
     } else {
       try {
@@ -90,8 +94,7 @@ const Auth = () => {
           { "Content-Type": "application/json" }
         );
 
-        ctx.login(responseData.user.id);
-        console.log(responseData);
+        navigate("/");
       } catch (err) {}
     }
   };

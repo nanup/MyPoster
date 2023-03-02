@@ -19,7 +19,7 @@ const PosterList = (props) => {
             description={poster.description}
             trailerLink={poster.trailerLink}
             userid={poster.userid}
-            onDelete={props.onDelete(props.id)}
+            onDelete={props.onDelete.bind(this, poster._id)}
           />
         ))}
       </ul>
