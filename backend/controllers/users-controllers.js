@@ -83,7 +83,7 @@ const loginUser = async (req, res, next) => {
 
   const hasUser = await User.findOne({ email });
 
-  if (!hasUser || hasUser.password !== password) {
+  if (!hasUser) {
     return next(new httpError("User credentials are wrong", 401));
   } else {
     let isValidPassword = false;

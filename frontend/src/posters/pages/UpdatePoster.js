@@ -90,7 +90,7 @@ const UpdatePoster = () => {
     event.preventDefault();
 
     try {
-      const responseData = await sendRequest(
+      await sendRequest(
         "http://localhost:5000/api/posters/" + posterId,
         "PATCH",
         JSON.stringify({
