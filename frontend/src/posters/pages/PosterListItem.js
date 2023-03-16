@@ -9,8 +9,10 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import Modal from "../../shared/components/UIElements/Modal";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { useNavigate } from "react-router-dom";
 
 const PosterListItem = (props) => {
+  const navigate = useNavigate();
   const ctx = useContext(AuthContext);
   const [showTrailer, setShowTrailer] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -33,14 +35,17 @@ const PosterListItem = (props) => {
   };
 
   const confirmShowConfirm = async () => {
-    await sendRequest(
+    setShowConfirm(false);
+    const response = await sendRequest(
       "http://localhost:5000/api/posters/" + props.id,
       "DELETE",
       null,
-      {}
+      {
+        Authorization: "Bearer " + ctx.token,
+      }
     );
-    props.onDelete();
-    setShowConfirm(false);
+    props.onDelete(props.id);
+    
   };
 
   return (
@@ -54,12 +59,12 @@ const PosterListItem = (props) => {
         footerClass={"place-item__modal-actions"}
         footer={<Button onClick={hideTrailerHandler}>Close</Button>}>
         <div className='map-container'>
-            <iframe
-              title='YouTube Trailer'
-              height='275'
-              src={props.trailerLink}
-              frameBorder='0'
-            />
+          <iframe
+            title='YouTube Trailer'
+            height='275'
+            src={props.trailerLink}
+            frameBorder='0'
+          />
         </div>
       </Modal>
       <Modal

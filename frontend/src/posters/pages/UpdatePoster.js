@@ -101,6 +101,7 @@ const UpdatePoster = () => {
         }),
         {
           "Content-Type": "application/json",
+          "Authorization": "Bearer " + auth.token
         }
       );
       navigate("/" + auth.userId + "/posters");

@@ -15,7 +15,7 @@ import UserPosters from "./posters/pages/UserPosters";
 import Users from "./user/pages/Users";
 
 function App() {
-  const [token, setToken] = useState(false);
+  const [token, setToken] = useState("");
   const [userId, setUserId] = useState(null);
 
   const login = useCallback((uid, token) => {
