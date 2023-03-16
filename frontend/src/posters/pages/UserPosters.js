@@ -17,7 +17,7 @@ const UserPosters = () => {
     const fetchPosters = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/posters/user/${userId}`,
+          process.env.REACT_APP_URL + `/posters/user/${userId}`,
           "GET",
           null,
           {}

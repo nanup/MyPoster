@@ -53,7 +53,7 @@ const NewPoster = () => {
 
     try {
       await sendRequest(
-        "http://localhost:5000/api/posters",
+        process.env.REACT_APP_URL + "/posters",
         "POST",
         JSON.stringify({
           userId: ctx.userId,
@@ -65,7 +65,7 @@ const NewPoster = () => {
         }),
         {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + ctx.token,
+          Authorization: "Bearer " + ctx.token,
         }
       );
 
