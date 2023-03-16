@@ -1,5 +1,6 @@
 const express = require("express");
 const { check } = require("express-validator");
+const checkToken = require("../middleware/check-token");
 
 const postersControllers = require("../controllers/poster-controllers");
 
@@ -8,6 +9,8 @@ const posterRouter = express.Router();
 posterRouter.get("/:pid", postersControllers.getPosterById);
 
 posterRouter.get("/user/:uid", postersControllers.getPostersByUserId);
+
+posterRouter.use(checkToken);
 
 posterRouter.post(
   "/",

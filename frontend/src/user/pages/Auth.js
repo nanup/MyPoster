@@ -84,7 +84,7 @@ const Auth = () => {
           { "Content-Type": "application/json" }
         );
 
-        ctx.login(responseData.user.id);
+        ctx.login(responseData.userId, responseData.token);
       } catch (err) {}
     } else {
       try {
@@ -96,7 +96,7 @@ const Auth = () => {
         await sendRequest(
           "http://localhost:5000/api/users/signup",
           "POST",
-          formData,
+          formData
         );
 
         navigate("/");
