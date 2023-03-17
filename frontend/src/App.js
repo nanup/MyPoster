@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
-import React, { Suspence, useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 
 import { AuthContext } from "./shared/components/FormElements/context/auth-context";
 import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
@@ -106,16 +106,14 @@ function App() {
       <Router>
         <MainNavigation />
         <main>
-          <Routes>
-            <Suspence
-              fallback={
-                <div className='center'>
-                  <LoadingSpinner />
-                </div>
-              }>
-              {routes}
-            </Suspence>
-          </Routes>
+          <Suspense
+            fallback={
+              <div className='center'>
+                <LoadingSpinner />
+              </div>
+            }>
+            <Routes>{routes}</Routes>
+          </Suspense>
         </main>
       </Router>
     </AuthContext.Provider>
