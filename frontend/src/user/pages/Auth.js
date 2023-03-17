@@ -45,7 +45,6 @@ const Auth = () => {
         {
           ...formState.inputs,
           username: undefined,
-          image: undefined,
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -55,10 +54,6 @@ const Auth = () => {
           ...formState.inputs,
           username: {
             value: "",
-            isValid: false,
-          },
-          image: {
-            value: null,
             isValid: false,
           },
         },
@@ -88,10 +83,11 @@ const Auth = () => {
     } else {
       try {
         const formData = new FormData();
+
         formData.append("name", formState.inputs.username.value);
         formData.append("email", formState.inputs.email.value);
         formData.append("password", formState.inputs.password.value);
-        formData.append("image", formState.inputs.image.value);
+
         await sendRequest(
           process.env.REACT_APP_URL + "/users/signup",
           "POST",
