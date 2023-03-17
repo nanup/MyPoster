@@ -36,6 +36,16 @@ const Input = (props) => {
     onInput(id, value, isValid);
   }, [id, value, isValid, onInput]);
 
+  useEffect(() => {
+    if (props.value) {
+      dispatchFn({
+        type: "CHANGE",
+        val: props.value,
+        validators: props.validators,
+      });
+    }
+  }, [props.value, props.validators]);
+
   const changeHandler = (event) => {
     dispatchFn({
       type: "CHANGE",

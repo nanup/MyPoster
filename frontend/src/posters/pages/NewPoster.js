@@ -123,6 +123,39 @@ const NewPoster = () => {
     }
   };
 
+  const autofillHandler = (event) => {
+    event.preventDefault();
+
+    const autofillData =
+      AUTOFILL_INPUTS[Math.floor(Math.random() * AUTOFILL_INPUTS.length)];
+
+    setFormData(
+      {
+        title: {
+          value: autofillData.title,
+          isValid: true,
+        },
+        year: {
+          value: autofillData.year,
+          isValid: true,
+        },
+        image: {
+          value: autofillData.image,
+          isValid: true,
+        },
+        trailerLink: {
+          value: autofillData.trailerLink,
+          isValid: true,
+        },
+        description: {
+          value: autofillData.description,
+          isValid: true,
+        },
+      },
+      true
+    );
+  };
+
   return (
     <div className='addposter-container'>
       <ErrorModal error={error} onClear={clearError} />
@@ -133,8 +166,8 @@ const NewPoster = () => {
           errorText={"Please enter a valid title"}
           id='title'
           label='Title*'
-          onInput={inputHandler}
           value={formState.inputs.title.value}
+          onInput={inputHandler}
           type='text'
           validators={[VALIDATOR_REQUIRE()]}
         />
@@ -143,6 +176,7 @@ const NewPoster = () => {
           errorText={"Please enter a valid year"}
           id='year'
           label='Year*'
+          value={formState.inputs.year.value}
           onInput={inputHandler}
           type='number'
           validators={[VALIDATOR_MINLENGTH(4), VALIDATOR_MAXLENGTH(4)]}
@@ -152,6 +186,7 @@ const NewPoster = () => {
           errorText={"Please enter a valid image link"}
           id='image'
           label='Poster Link* (Ex: TMDb)'
+          value={formState.inputs.image.value}
           onInput={inputHandler}
           type='text'
           validators={[VALIDATOR_MINLENGTH(0)]}
@@ -161,6 +196,7 @@ const NewPoster = () => {
           errorText={"Please enter a valid trailer embed link"}
           id='trailerLink'
           label='Trailer Embed Link (Ex: YouTube)'
+          value={formState.inputs.trailerLink.value}
           onInput={inputHandler}
           type='text'
           validators={[]}
@@ -170,6 +206,7 @@ const NewPoster = () => {
           errorText={"Please enter a valid description"}
           id='description'
           label='Description'
+          value={formState.inputs.description.value}
           onInput={inputHandler}
           validators={[]}
         />
@@ -177,6 +214,7 @@ const NewPoster = () => {
         <Button type='submit' disabled={!formState.isValid}>
           Add Poster
         </Button>
+        <Button onClick={autofillHandler}>Autofill</Button>
       </form>
     </div>
   );
