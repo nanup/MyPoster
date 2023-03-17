@@ -36,7 +36,7 @@ const PosterListItem = (props) => {
 
   const confirmShowConfirm = async () => {
     setShowConfirm(false);
-    const response = await sendRequest(
+    await sendRequest(
       process.env.REACT_APP_URL + "/posters/" + props.id,
       "DELETE",
       null,
@@ -80,13 +80,11 @@ const PosterListItem = (props) => {
             </Button>
           </React.Fragment>
         }>
-        <p>Do you want to delete this poster?</p>
-        <div className='map-container'>
-          <img
-            style={{ height: "14rem" }}
-            src={props.image}
-            alt={props.title}
-          />
+        <div className='delete_poster--container'>
+          <p>Do you want to delete this poster?</p>
+          <div className='delete_poster'>
+            <img src={props.image} alt={props.title} />
+          </div>
         </div>
       </Modal>
       <li className='place-item'>
