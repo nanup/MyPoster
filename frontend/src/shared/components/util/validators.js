@@ -22,14 +22,21 @@ export const validate = (value, validators) => {
   let isValid = true;
   for (const validator of validators) {
     if (validator.type === VALIDATOR_TYPE_REQUIRE) {
+      if (typeof value === "number") {
+        value = value.toString(10);
+      }
       isValid = isValid && value.trim().length > 0;
     }
     if (validator.type === VALIDATOR_TYPE_MINLENGTH) {
-      value = toString(value);
+      if (typeof value === "number") {
+        value = value.toString(10);
+      }
       isValid = isValid && value.trim().length >= validator.val;
     }
     if (validator.type === VALIDATOR_TYPE_MAXLENGTH) {
-      value = toString(value);
+      if (typeof value === "number") {
+        value = value.toString(10);
+      }
       isValid = isValid && value.trim().length <= validator.val;
     }
     if (validator.type === VALIDATOR_TYPE_MIN) {
