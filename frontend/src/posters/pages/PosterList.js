@@ -19,7 +19,7 @@ const PosterList = (props) => {
             description={poster.description}
             trailerLink={poster.trailerLink}
             userid={poster.userId}
-            onDelete={props.onDelete}
+            onDelete={props.onDeletePoster}
           />
         ))}
       </ul>

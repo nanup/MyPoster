@@ -7,27 +7,19 @@ import { useHttpClient } from "./../../shared/hooks/http-hook";
 import { useParams } from "react-router-dom";
 
 const UserPosters = () => {
-  const [posters, setPosters] = useState([]);
+  const [posters, setPosters] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const params = useParams();
   const userId = params.uid;
-  
+
   useEffect(() => {
     const fetchPosters = async () => {
       try {
         const responseData = await sendRequest(
-          process.env.REACT_APP_URL + `/posters/user/${userId}`,
-          "GET",
-          null,
-          {}
+          process.env.REACT_APP_URL + `/posters/user/${userId}`
         );
-
-        if (responseData) {
-          setPosters(responseData.posters);
-        } else {
-          throw new Error("Something went wrong");
-        }
+        setPosters(responseData.posters);
       } catch (err) {
         console.log(err);
       }
@@ -36,16 +28,17 @@ const UserPosters = () => {
   }, [sendRequest, userId]);
 
   const deleteHandler = (deletedId) => {
-    setPosters((prev) => prev.filter((poster) => poster.id !== deletedId));
+    setPosters((prevPosters) =>
+      prevPosters.filter((poster) => poster._id !== deletedId)
+    );
   };
 
-  const userPosters = posters.filter((poster) => poster.userId === userId);
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
       {isLoading && <LoadingSpinner asOverlay />}
       {!isLoading && posters && (
-        <PosterList posters={userPosters} onDelete={deleteHandler} />
+        <PosterList posters={posters} onDeletePoster={deleteHandler} />
       )}
     </React.Fragment>
   );

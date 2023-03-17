@@ -9,10 +9,8 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import Modal from "../../shared/components/UIElements/Modal";
 import { useHttpClient } from "../../shared/hooks/http-hook";
-import { useNavigate } from "react-router-dom";
 
 const PosterListItem = (props) => {
-  const navigate = useNavigate();
   const ctx = useContext(AuthContext);
   const [showTrailer, setShowTrailer] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -63,7 +61,7 @@ const PosterListItem = (props) => {
         contentClass={"place-item__modal-content"}
         footerClass={"place-item__modal-actions"}
         footer={<Button onClick={hideTrailerHandler}>Close</Button>}>
-        <iframe className='trailer' src={props.trailerLink} />
+        <iframe title='Trailer' className='trailer' src={props.trailerLink} />
       </Modal>
       <Modal
         show={showConfirm}
