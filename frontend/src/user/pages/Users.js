@@ -13,7 +13,7 @@ const Users = () => {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          process.env.REACT_APP_URL + "/api/users",
+          process.env.REACT_APP_URL + "/users",
           "GET",
           null,
           {}

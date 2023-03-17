@@ -4,19 +4,21 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Suspence, useCallback, useEffect, useState } from "react";
 
-import Auth from "./user/pages/Auth";
 import { AuthContext } from "./shared/components/FormElements/context/auth-context";
+import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import NewPoster from "./posters/pages/NewPoster";
-import UpdatePoster from "./posters/pages/UpdatePoster";
-import UserPosters from "./posters/pages/UserPosters";
 import Users from "./user/pages/Users";
 
 let logoutTimer;
 
 function App() {
+  const Auth = React.lazy(() => import("./user/pages/Auth"));
+  const NewPoster = React.lazy(() => import("./posters/pages/NewPoster"));
+  const UpdatePoster = React.lazy(() => import("./posters/pages/UpdatePoster"));
+  const UserPosters = React.lazy(() => import("./posters/pages/UserPosters"));
+
   const [token, setToken] = useState("");
   const [tokenExpireDate, setTokenExpireDate] = useState();
   const [userId, setUserId] = useState(null);
@@ -104,7 +106,16 @@ function App() {
       <Router>
         <MainNavigation />
         <main>
-          <Routes>{routes}</Routes>
+          <Routes>
+            <Suspence
+              fallback={
+                <div className='center'>
+                  <LoadingSpinner />
+                </div>
+              }>
+              {routes}
+            </Suspence>
+          </Routes>
         </main>
       </Router>
     </AuthContext.Provider>

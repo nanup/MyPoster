@@ -105,8 +105,6 @@ const loginUser = async (req, res, next) => {
         return next(error);
       }
 
-      console.log(hasUser);
-
       res.json({ userId: hasUser._id, email: hasUser.email, token: token });
     }
   }
