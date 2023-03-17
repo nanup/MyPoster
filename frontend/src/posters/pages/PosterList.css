@@ -3,5 +3,9 @@
   margin: 1rem auto;
   padding: 0;
   width: 90%;
-  max-width: 40rem;
+  max-width: 80rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
 }

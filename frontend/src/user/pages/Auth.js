@@ -11,7 +11,6 @@ import { AuthContext } from "../../shared/components/FormElements/context/auth-c
 import Button from "../../shared/components/FormElements/Button";
 import Card from "./../../shared/components/UIElements/Card";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 import Input from "../../shared/components/FormElements/Input";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import useForm from "../../shared/hooks/form-hook";
@@ -109,8 +108,6 @@ const Auth = () => {
       <ErrorModal error={error} onClear={clearError} />
       <Card className='authentication'>
         {isLoading && <LoadingSpinner asOverlay />}
-        <h2>Login Required</h2>
-        <hr />
         <form onSubmit={loginHandler}>
           {!isLogin && (
             <Input
@@ -123,7 +120,7 @@ const Auth = () => {
               validators={[VALIDATOR_REQUIRE()]}
             />
           )}
-          {!isLogin && <ImageUpload center id='image' onInput={inputHandler} />}
+          {!isLogin}
           <Input
             element='input'
             errorText='Please enter a valid email address'

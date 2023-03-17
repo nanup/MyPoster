@@ -1,3 +1,5 @@
+import "./UpdatePoster.css";
+
 import React, { useContext, useEffect, useState } from "react";
 import {
   VALIDATOR_MAXLENGTH,
@@ -101,7 +103,7 @@ const UpdatePoster = () => {
         }),
         {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + auth.token
+          Authorization: "Bearer " + auth.token,
         }
       );
       navigate("/" + auth.userId + "/posters");
@@ -121,12 +123,12 @@ const UpdatePoster = () => {
       <ErrorModal error={error} onClear={clearError} />
       {isLoading && <LoadingSpinner asOverlay />}
       {formState.inputs.title.value && !isLoading && (
-        <form onSubmit={updatePosterHandler} className='place-form'>
+        <form onSubmit={updatePosterHandler} className='updateposter-form'>
           <Input
             id='title'
             element='input'
             type='text'
-            label='Title *'
+            label='Title*'
             validators={[VALIDATOR_REQUIRE()]}
             errorText='Please enter a valid title.'
             onInput={inputHandler}
@@ -137,7 +139,7 @@ const UpdatePoster = () => {
             id='year'
             element='input'
             type='number'
-            label='Year *'
+            label='Year*'
             validators={[
               VALIDATOR_REQUIRE(),
               VALIDATOR_MINLENGTH(4),
@@ -152,7 +154,7 @@ const UpdatePoster = () => {
             id='image'
             element='input'
             type='text'
-            label='Image Link *'
+            label='Poster Link* (Ex: TMDb)'
             validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(4)]}
             errorText='Please enter a valid title.'
             onInput={inputHandler}
@@ -163,7 +165,7 @@ const UpdatePoster = () => {
             id='trailerLink'
             element='input'
             type='text'
-            label='Trailer Embed Link'
+            label='Trailer Embed Link (Ex: YouTube)'
             validators={[]}
             errorText='Please enter a valid embed link.'
             onInput={inputHandler}

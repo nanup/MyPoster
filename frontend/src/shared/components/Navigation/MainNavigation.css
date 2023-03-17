@@ -22,8 +22,9 @@
 }
 
 .main-navigation__title a {
+  font-size: 2.5rem;
   text-decoration: none;
-  color: white;
+  color: rgb(255, 0, 0);
 }
 
 .main-navigation__header-nav {

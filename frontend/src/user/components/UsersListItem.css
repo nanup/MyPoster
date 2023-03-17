@@ -1,40 +1,32 @@
 .user-item {
   margin: 1rem;
   width: calc(45% - 2rem);
-  min-width: 17.5rem;
+  min-width: 20rem;
 }
 
 .user-item a {
   display: flex;
   align-items: center;
-  width: 100%;
-  height: 100%;
   text-decoration: none;
-  padding: 1rem;
+  padding: 1.5rem;
   color: white;
-  background: #292929;
+  background: #111122;
 }
 
 .user-item a:hover,
 .user-item a:active {
-  background: #d02300;
+  background: #ff2a00;
 }
 
 .user-item__content {
   padding: 0;
 }
 
-.user-item__image {
-  width: 4rem;
-  height: 4rem;
-  margin-right: 1rem;
-}
-
 .user-item__info h2 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   margin: 0 0 0.5rem 0;
   font-weight: normal;
-  color: #e34444;
+  color: #ff0000;
 }
 
 .user-item:hover h2,

@@ -1,16 +1,21 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
-
-* {
-  box-sizing: border-box;
-}
-
 html {
-  font-family: 'Open Sans', sans-serif;
+  font-size: 62.5%;
 }
 
 body {
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  color: #777;
+  padding: 1rem;
+}
+
+*,
+*::after,
+*::before {
   margin: 0;
-  background: #e4e3e3;
+  padding: 0;
+  box-sizing: inherit;
 }
 
 .slide-in-left-enter {
@@ -18,9 +23,9 @@ body {
 }
 
 .slide-in-left-enter-active {
-  transform: translateX(0);
+  transform: translateX(0%);
   opacity: 1;
-  transition: all 200ms;
+  transition: all 300ms;
 }
 
 .slide-in-left-exit {
@@ -31,12 +36,11 @@ body {
 .slide-in-left-exit-active {
   transform: translateX(-100%);
   opacity: 0;
-  transition: all 200ms;
+  transition: all 300ms;
 }
 
 .center {
   text-align: center;
-  display: flex;
   justify-content: center;
-  align-items: center;
+  align-content: center;
 }

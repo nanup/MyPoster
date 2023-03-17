@@ -1,11 +1,13 @@
 .form-control {
   margin: 1rem 0;
+  font-size: 1.3rem;
 }
 
 .form-control label,
 .form-control input,
 .form-control textarea {
   display: block;
+  
 }
 
 .form-control label {

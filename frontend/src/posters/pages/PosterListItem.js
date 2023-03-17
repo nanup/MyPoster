@@ -45,7 +45,6 @@ const PosterListItem = (props) => {
       }
     );
     props.onDelete(props.id);
-    
   };
 
   return (
@@ -54,18 +53,17 @@ const PosterListItem = (props) => {
       <Modal
         show={showTrailer}
         onCancel={hideTrailerHandler}
-        header={props.title}
+        header={
+          <div>
+            <h3>{props.title}</h3>
+            <br></br>
+            <p>{props.year}</p>
+          </div>
+        }
         contentClass={"place-item__modal-content"}
         footerClass={"place-item__modal-actions"}
         footer={<Button onClick={hideTrailerHandler}>Close</Button>}>
-        <div className='map-container'>
-          <iframe
-            title='YouTube Trailer'
-            height='275'
-            src={props.trailerLink}
-            frameBorder='0'
-          />
-        </div>
+        <iframe className='trailer' src={props.trailerLink} />
       </Modal>
       <Modal
         show={showConfirm}
