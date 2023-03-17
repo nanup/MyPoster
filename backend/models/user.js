@@ -17,10 +17,6 @@ const userSchema = new Schema({
     required: true,
     minlength: 6,
   },
-  image: {
-    type: String,
-    required: true,
-  },
   posters: [
     {
       type: mongoose.Types.ObjectId,

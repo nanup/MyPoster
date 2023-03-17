@@ -82,16 +82,15 @@ const Auth = () => {
       } catch (err) {}
     } else {
       try {
-        const formData = new FormData();
-
-        formData.append("name", formState.inputs.username.value);
-        formData.append("email", formState.inputs.email.value);
-        formData.append("password", formState.inputs.password.value);
-
         await sendRequest(
           process.env.REACT_APP_URL + "/users/signup",
           "POST",
-          formData
+          JSON.stringify({
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+            name: formState.inputs.username.value,
+          }),
+          { "Content-Type": "application/json" }
         );
 
         navigate("/");

@@ -17,7 +17,6 @@ const getUsers = async (req, res, next) => {
 };
 
 const signupUser = async (req, res, next) => {
-  console.log(req.body);
 
   const errors = validationResult(req);
 
@@ -52,7 +51,6 @@ const signupUser = async (req, res, next) => {
   const newUser = new User({
     name,
     email,
-    image: req.file.path,
     password: hashedPassword,
     posters: [],
   });
