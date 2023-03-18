@@ -22,38 +22,41 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://github.com/nanup/MyPoster/media/Posterati.png)
+<img src="https://github.com/nanup/MyPoster/blob/master/media/Posterati.png?raw=true" alt="Posterati Homepag">
 
-There are many great README templates available on GitHub, however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need.
+Welcome to our social media app for movie and TV poster enthusiasts! Our app is designed to be a hub for users to discover, share, and discuss their favorite movie and TV posters.
 
-Here's why:
+Homepage:
+Upon opening the app, users will be greeted with the homepage. The homepage will feature a list of users who have joined the community, giving users the ability to browse through the community and view their profiles.
 
-- Your time should be focused on creating something amazing. A project that solves a problem and helps others
-- You shouldn't be doing the same tasks over and over like creating a README from scratch
-- You should element DRY principles to the rest of your life :smile:
+Login:
+To use our app, users must first create an account and log in. This ensures that all posters posted by users are properly attributed and helps maintain a safe and secure community.
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue.
+Posting:
+Once logged in, users will have the ability to post their favorite movie and TV posters, along with relevant information such as the release year, genre, and director. Users can also upload multiple images for each poster and add tags to make it easier for other users to discover and explore.
 
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
+Editing:
+Users can edit their posters at any time, allowing them to make changes to the information, images, or tags associated with each post.
+
+Deleting:
+Users also have the ability to delete their posters if they wish to remove them from the app.
+
+Overall, our social media app for movie and TV poster enthusiasts is a great place for users to come together, share their passions, and discover new movies and TV shows. We hope you enjoy using our app and look forward to seeing what you post!
 
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+Posterati was made with React.js for the frontend and Node.js, Express for the backend. MonogoDB is the database of choice. Authentication is handled using <i>jsonwebtoken</i>.
 
-- [Bootstrap](https://getbootstrap.com)
-- [JQuery](https://jquery.com)
-- [Laravel](https://laravel.com)
+- [React](https://react.dev/)
+- [Node.js](https://nodejs.org/en)
+- [MongoDB](https://www.mongodb.com/)
 
 <!-- GETTING STARTED -->
 
 ## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
 
 - npm
 
@@ -63,7 +66,7 @@ npm install npm@latest -g
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Make sure you have <b>Node.js</b> installed on your computer.
 2. Clone the repo
 
 ```sh
@@ -76,25 +79,16 @@ git clone https://github.com/your_username_/Project-Name.git
 npm install
 ```
 
-4. Enter your API in `config.js`
+4. Start the <b>Node.js</b> server
 
-```JS
-const API_KEY = 'ENTER YOUR API';
+```sh
+node app.js
 ```
 
-<!-- USAGE EXAMPLES -->
-
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<!-- ROADMAP -->
-
-## 🚧 Roadmap
-
-See the [open issues](https://github.com/nanup/MyPoster/issues) for a list of proposed features (and known issues).
+5. Start the <b>React.js</b> server
+```sh
+npm start
+```
 
 <!-- CONTRIBUTING -->
 
@@ -112,35 +106,12 @@ Contributions are what make the open source community such an amazing place to b
 
 ## 📝 License
 
-Describe your License for your project.
-
 Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- CONTACT -->
 
 ## 📫 Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Nanu Panchamurthy - nanup.personal@github.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
-<!-- ACKNOWLEDGEMENTS -->
-
-## Acknowledgements
-
-- [Img Shields](https://shields.io)
-- [GitHub Pages](https://pages.github.com)
-- [Font Awesome](https://fontawesome.com)
-- blah blah blah....
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[forks-shield]: https://img.shields.io/github/forks/nanup/MyPoster?style=for-the-badge
-[forks-url]: https://github.com/nanup/MyPoster/network/members
-[stars-shield]: https://img.shields.io/github/stars/nanup/MyPoster?style=for-the-badge
-[stars-url]: https://github.com/nanup/MyPoster/stargazers
-[issues-shield]: https://img.shields.io/github/issues/nanup/MyPoster?style=for-the-badge
-[issues-url]: https://github.com/nanup/MyPoster/issues
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/roshan-lamichhane
+Project Link: [https://github.com/nanup/MyPoster](https://github.com/nanup/MyPoster)
