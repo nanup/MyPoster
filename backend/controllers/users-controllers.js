@@ -17,7 +17,6 @@ const getUsers = async (req, res, next) => {
 };
 
 const signupUser = async (req, res, next) => {
-
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -48,9 +47,11 @@ const signupUser = async (req, res, next) => {
     return next(error);
   }
 
+  const lowerEmail = email.toLowerCase();
+
   const newUser = new User({
     name,
-    email,
+    email: lowerEmail,
     password: hashedPassword,
     posters: [],
   });
@@ -80,7 +81,9 @@ const signupUser = async (req, res, next) => {
 const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const hasUser = await User.findOne({ email });
+  const lowerEmail = email.toLowerCase();
+
+  const hasUser = await User.findOne({ email: lowerEmail });
 
   if (!hasUser) {
     return next(new httpError("User credentials are wrong", 401));
