@@ -1,4 +1,3 @@
-const httpError = require('../models/http-error');
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
@@ -16,7 +15,7 @@ module.exports = (req, res, next) => {
       next();
     }
   } catch (err) {
-    const error = new httpError('Authentication failed!', 401);
+    const error = new Error('Authentication failed!', 401);
     return next(error);
   }
 };

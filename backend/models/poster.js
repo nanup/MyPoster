@@ -8,7 +8,7 @@ const posterSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  image: {
+  imageUrl: {
     type: String,
     required: true,
   },
@@ -16,7 +16,7 @@ const posterSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  trailerLink: {
+  trailerUrl: {
     type: String,
   },
   userId: {

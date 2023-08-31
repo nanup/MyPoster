@@ -3,9 +3,10 @@ const validator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  name: {
+  username: {
     type: String,
     required: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -25,6 +26,9 @@ const userSchema = new Schema({
     },
   ],
 });
+
+userSchema.index({ username: 1 });
+userSchema.index({ email: 1 });
 
 userSchema.plugin(validator);
 

@@ -1,51 +1,46 @@
+require('dotenv').config({ path: '.env.dev' });
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-require('dotenv').config();
-const httpError = require('./models/http-error');
-const posterRoutes = require('./routes/poster-routes');
-const userRoutes = require('./routes/user-routes');
+
+const NotFoundError = require('./errors/notfound.error');
+
+const posterRoutes = require('./routes/posters.routes');
+const userRoutes = require('./routes/users.routes');
 
 const app = express();
-
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-  );
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, PATCH, PUT, DELETE, OPTIONS'
-  );
   next();
 });
 
-app.use('/api/posters', posterRoutes);
-app.use('/api/users', userRoutes);
+app.use('/posters', posterRoutes);
+app.use('/users', userRoutes);
 
 app.use((req, res, next) => {
-  const error = new httpError('Route not found', 404);
-  throw error;
+  next(new NotFoundError('Url not found!'));
 });
 
-app.use((error, req, res, next) => {
-  if (res.headerSent) {
-    return next(error);
-  } else {
-    res.status(error.code || 500);
-    res.json({ errorMessage: error.message || 'Something went wrong!' });
-  }
+app.use((err, req, res, next) => {
+  return res
+    .status(err.status || 500)
+    .send(err.message || 'Something went wrong!');
 });
 
-// Server
+mongoose.set('strictQuery', true);
 mongoose
   .connect(
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.mdhqaux.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
   )
   .then(() => {
-    app.listen(process.env.PORT);
+    console.log('Connected to MongoDB database');
+    const port = process.env.PORT || 5000;
+    app.listen(port);
+    console.log(`Server started on the port ${port}`);
   })
-  .catch((error) => console.log(error));
+  .catch((err) => {
+    console.log(`MongoServerError: ${err.message.split(':')[1]}`);
+  });

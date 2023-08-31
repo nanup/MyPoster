@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 
-const httpError = require('../models/http-error');
 const Poster = require('../models/poster');
 const User = require('../models/user');
 
@@ -12,12 +11,12 @@ const getPosterById = async (req, res, next) => {
   try {
     poster = await Poster.findById(id);
   } catch (err) {
-    const error = new httpError(err.message, 404);
+    const error = new Error(err.message, 404);
     return next(error);
   }
 
   if (!poster) {
-    return next(new httpError('Poster not found', 404));
+    return next(new Error('Poster not found', 404));
   }
 
   res.json({ poster: poster.toObject({ getters: true }) });
@@ -30,7 +29,7 @@ const getPostersByUserId = async (req, res, next) => {
     const query = await Poster.find({ userId: userId });
     posters = query.map((poster) => poster.toObject());
   } catch (err) {
-    const error = new httpError(err.message, 404);
+    const error = new Error(err.message, 404);
     return next(error);
   }
 
@@ -49,7 +48,7 @@ const postPoster = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return next(httpError('Invalid inputs', 422));
+    return next(Error('Invalid inputs', 422));
   }
 
   const { userId, title, description, year, trailerLink, image } = req.body;
