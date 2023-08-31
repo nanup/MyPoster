@@ -1,10 +1,10 @@
-import "./NavLinks.css";
+import './NavLinks.css';
 
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 
-import { AuthContext } from "./../FormElements/context/auth-context";
-import Button from "../FormElements/Button";
-import { NavLink } from "react-router-dom";
+import { AuthContext } from './../FormElements/context/auth-context';
+import Button from '../FormElements/Button';
+import { NavLink } from 'react-router-dom';
 
 const NavLinks = (props) => {
   const ctx = useContext(AuthContext);

@@ -1,21 +1,21 @@
-import "./UpdatePoster.css";
+import './UpdatePoster.css';
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import {
   VALIDATOR_MAXLENGTH,
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
-} from "./../../shared/components/util/validators";
+} from './../../shared/components/util/validators';
 
-import { AuthContext } from "./../../shared/components/FormElements/context/auth-context";
-import Button from "../../shared/components/FormElements/Button";
-import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import Input from "../../shared/components/FormElements/Input";
-import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
-import useForm from "./../../shared/hooks/form-hook";
-import { useHttpClient } from "../../shared/hooks/http-hook";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { AuthContext } from './../../shared/components/FormElements/context/auth-context';
+import Button from '../../shared/components/FormElements/Button';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import Input from '../../shared/components/FormElements/Input';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import useForm from './../../shared/hooks/form-hook';
+import { useHttpClient } from '../../shared/hooks/http-hook';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const UpdatePoster = () => {
   const posterId = useParams().posterId;
@@ -27,19 +27,19 @@ const UpdatePoster = () => {
   const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
-        value: "",
+        value: '',
         isValid: false,
       },
       year: {
-        value: "",
+        value: '',
         isValid: false,
       },
       image: {
-        value: "",
+        value: '',
         isValid: false,
       },
       trailerLink: {
-        value: "",
+        value: '',
         isValid: false,
       },
     },
@@ -50,8 +50,8 @@ const UpdatePoster = () => {
     const fetchPoster = async () => {
       try {
         const responseData = await sendRequest(
-          process.env.REACT_APP_URL + "/posters/" + posterId,
-          "GET",
+          process.env.REACT_APP_URL + '/posters/' + posterId,
+          'GET',
           null,
           {}
         );
@@ -93,8 +93,8 @@ const UpdatePoster = () => {
 
     try {
       await sendRequest(
-        process.env.REACT_APP_URL + "/posters/" + posterId,
-        "PATCH",
+        process.env.REACT_APP_URL + '/posters/' + posterId,
+        'PATCH',
         JSON.stringify({
           title: formState.inputs.title.value,
           year: formState.inputs.year.value,
@@ -102,11 +102,11 @@ const UpdatePoster = () => {
           trailerLink: formState.inputs.trailerLink.value,
         }),
         {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + auth.token,
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token,
         }
       );
-      navigate("/" + auth.userId + "/posters");
+      navigate('/' + auth.userId + '/posters');
     } catch (err) {}
   };
 
@@ -120,10 +120,15 @@ const UpdatePoster = () => {
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal
+        error={error}
+        onClear={clearError}
+      />
       {isLoading && <LoadingSpinner asOverlay />}
       {formState.inputs.title.value && !isLoading && (
-        <form onSubmit={updatePosterHandler} className='updateposter-form'>
+        <form
+          onSubmit={updatePosterHandler}
+          className='updateposter-form'>
           <Input
             id='title'
             element='input'
@@ -172,8 +177,10 @@ const UpdatePoster = () => {
             value={formState.inputs.trailerLink.value}
             validity={true}
           />
-          <p style={{ color: "red" }}>* fields are required</p>
-          <Button type='submit' disabled={!formState.isValid}>
+          <p style={{ color: 'red' }}>* fields are required</p>
+          <Button
+            type='submit'
+            disabled={!formState.isValid}>
             Update Poster
           </Button>
         </form>

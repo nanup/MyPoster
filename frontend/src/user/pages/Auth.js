@@ -1,21 +1,21 @@
-import "./Auth.css";
+import './Auth.css';
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useState } from 'react';
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
-} from "./../../shared/components/util/validators";
+} from './../../shared/components/util/validators';
 
-import { AuthContext } from "../../shared/components/FormElements/context/auth-context";
-import Button from "../../shared/components/FormElements/Button";
-import Card from "./../../shared/components/UIElements/Card";
-import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import Input from "../../shared/components/FormElements/Input";
-import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
-import useForm from "../../shared/hooks/form-hook";
-import { useHttpClient } from "../../shared/hooks/http-hook";
-import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../../shared/components/FormElements/context/auth-context';
+import Button from '../../shared/components/FormElements/Button';
+import Card from './../../shared/components/UIElements/Card';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import Input from '../../shared/components/FormElements/Input';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import useForm from '../../shared/hooks/form-hook';
+import { useHttpClient } from '../../shared/hooks/http-hook';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
   const ctx = useContext(AuthContext);
@@ -26,11 +26,11 @@ const Auth = () => {
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
-        value: "",
+        value: '',
         isValid: false,
       },
       password: {
-        value: "",
+        value: '',
         isValid: false,
       },
     },
@@ -53,7 +53,7 @@ const Auth = () => {
         {
           ...formState.inputs,
           username: {
-            value: "",
+            value: '',
             isValid: false,
           },
         },
@@ -69,13 +69,13 @@ const Auth = () => {
     if (isLogin) {
       try {
         const responseData = await sendRequest(
-          process.env.REACT_APP_URL + "/users/login",
-          "POST",
+          process.env.REACT_APP_URL + '/users/login',
+          'POST',
           JSON.stringify({
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
           }),
-          { "Content-Type": "application/json" }
+          { 'Content-Type': 'application/json' }
         );
 
         ctx.login(responseData.userId, responseData.token);
@@ -83,24 +83,27 @@ const Auth = () => {
     } else {
       try {
         await sendRequest(
-          process.env.REACT_APP_URL + "/users/signup",
-          "POST",
+          process.env.REACT_APP_URL + '/users/signup',
+          'POST',
           JSON.stringify({
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
             name: formState.inputs.username.value,
           }),
-          { "Content-Type": "application/json" }
+          { 'Content-Type': 'application/json' }
         );
 
-        navigate("/");
+        navigate('/');
       } catch (err) {}
     }
   };
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal
+        error={error}
+        onClear={clearError}
+      />
       <Card className='authentication'>
         {isLoading && <LoadingSpinner asOverlay />}
         <form onSubmit={loginHandler}>
@@ -134,12 +137,16 @@ const Auth = () => {
             type='password'
             validators={[VALIDATOR_MINLENGTH(6)]}
           />
-          <Button type='submit' disabled={!formState.isValid}>
-            {isLogin ? "LOGIN" : "SIGNUP"}
+          <Button
+            type='submit'
+            disabled={!formState.isValid}>
+            {isLogin ? 'LOGIN' : 'SIGNUP'}
           </Button>
         </form>
-        <Button onClick={switchHandler} inverse>
-          SWITCH TO {isLogin ? "SIGNUP" : "LOGIN"}
+        <Button
+          onClick={switchHandler}
+          inverse>
+          SWITCH TO {isLogin ? 'SIGNUP' : 'LOGIN'}
         </Button>
       </Card>
     </React.Fragment>

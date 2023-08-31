@@ -1,12 +1,12 @@
-import "./MainNavigation.css";
+import './MainNavigation.css';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import Backdrop from "../UIElements/Backdrop";
-import { Link } from "react-router-dom";
-import MainHeader from "./MainHeader";
-import NavLinks from "./NavLinks";
-import SideDrawer from "./SideDrawer";
+import Backdrop from '../UIElements/Backdrop';
+import { Link } from 'react-router-dom';
+import MainHeader from './MainHeader';
+import NavLinks from './NavLinks';
+import SideDrawer from './SideDrawer';
 
 const MainNavigation = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -22,7 +22,9 @@ const MainNavigation = () => {
   return (
     <React.Fragment>
       {drawerVisible && <Backdrop onClick={hideDrawerHandler} />}
-      <SideDrawer onClick={hideDrawerHandler} visible={drawerVisible}>
+      <SideDrawer
+        onClick={hideDrawerHandler}
+        visible={drawerVisible}>
         <nav className='main-navigation__drawer-nav'>
           <NavLinks />
         </nav>

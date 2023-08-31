@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const posterSchema = new mongoose.Schema({
   title: {
@@ -22,8 +22,8 @@ const posterSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Types.ObjectId,
     required: true,
-    ref: "User",
+    ref: 'User',
   },
 });
 
-module.exports = mongoose.model("Poster", posterSchema);
+module.exports = mongoose.model('Poster', posterSchema);

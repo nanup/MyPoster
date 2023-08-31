@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
-import PosterList from "./PosterList";
-import { useHttpClient } from "./../../shared/hooks/http-hook";
-import { useParams } from "react-router-dom";
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import PosterList from './PosterList';
+import { useHttpClient } from './../../shared/hooks/http-hook';
+import { useParams } from 'react-router-dom';
 
 const UserPosters = () => {
   const [posters, setPosters] = useState();
@@ -35,10 +35,16 @@ const UserPosters = () => {
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal
+        error={error}
+        onClear={clearError}
+      />
       {isLoading && <LoadingSpinner asOverlay />}
       {!isLoading && posters && (
-        <PosterList posters={posters} onDeletePoster={deleteHandler} />
+        <PosterList
+          posters={posters}
+          onDeletePoster={deleteHandler}
+        />
       )}
     </React.Fragment>
   );

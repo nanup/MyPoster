@@ -1,14 +1,14 @@
-import "./PosterListItem.css";
+import './PosterListItem.css';
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useState } from 'react';
 
-import { AuthContext } from "./../../shared/components/FormElements/context/auth-context";
-import Button from "../../shared/components/FormElements/Button";
-import Card from "../../shared/components/UIElements/Card";
-import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
-import Modal from "../../shared/components/UIElements/Modal";
-import { useHttpClient } from "../../shared/hooks/http-hook";
+import { AuthContext } from './../../shared/components/FormElements/context/auth-context';
+import Button from '../../shared/components/FormElements/Button';
+import Card from '../../shared/components/UIElements/Card';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import Modal from '../../shared/components/UIElements/Modal';
+import { useHttpClient } from '../../shared/hooks/http-hook';
 
 const PosterListItem = (props) => {
   const ctx = useContext(AuthContext);
@@ -35,11 +35,11 @@ const PosterListItem = (props) => {
   const confirmShowConfirm = async () => {
     setShowConfirm(false);
     await sendRequest(
-      process.env.REACT_APP_URL + "/posters/" + props.id,
-      "DELETE",
+      process.env.REACT_APP_URL + '/posters/' + props.id,
+      'DELETE',
       null,
       {
-        Authorization: "Bearer " + ctx.token,
+        Authorization: 'Bearer ' + ctx.token,
       }
     );
     props.onDelete(props.id);
@@ -47,7 +47,10 @@ const PosterListItem = (props) => {
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal
+        error={error}
+        onClear={clearError}
+      />
       <Modal
         show={showTrailer}
         onCancel={hideTrailerHandler}
@@ -58,10 +61,14 @@ const PosterListItem = (props) => {
             <p>{props.year}</p>
           </div>
         }
-        contentClass={"place-item__modal-content"}
-        footerClass={"place-item__modal-actions"}
+        contentClass={'place-item__modal-content'}
+        footerClass={'place-item__modal-actions'}
         footer={<Button onClick={hideTrailerHandler}>Close</Button>}>
-        <iframe title='Trailer' className='trailer' src={props.trailerLink} />
+        <iframe
+          title='Trailer'
+          className='trailer'
+          src={props.trailerLink}
+        />
       </Modal>
       <Modal
         show={showConfirm}
@@ -70,10 +77,14 @@ const PosterListItem = (props) => {
         footerClass='place-item__modal-actions'
         footer={
           <React.Fragment>
-            <Button onClick={cancelShowConfirm} inverse>
+            <Button
+              onClick={cancelShowConfirm}
+              inverse>
               CANCEL
             </Button>
-            <Button onClick={confirmShowConfirm} danger>
+            <Button
+              onClick={confirmShowConfirm}
+              danger>
               DELETE
             </Button>
           </React.Fragment>
@@ -81,7 +92,10 @@ const PosterListItem = (props) => {
         <div className='delete_poster--container'>
           <p>Do you want to delete this poster?</p>
           <div className='delete_poster'>
-            <img src={props.image} alt={props.title} />
+            <img
+              src={props.image}
+              alt={props.title}
+            />
           </div>
         </div>
       </Modal>
@@ -89,7 +103,10 @@ const PosterListItem = (props) => {
         <Card className='place-item__content'>
           {isLoading && <LoadingSpinner asOverlay />}
           <div className='place-item__image'>
-            <img src={props.image} alt={props.title} />
+            <img
+              src={props.image}
+              alt={props.title}
+            />
           </div>
           <div className='place-item__info'>
             <h2>{props.title}</h2>
@@ -97,14 +114,18 @@ const PosterListItem = (props) => {
             <p>{props.description}</p>
           </div>
           <div className='place-item__actions'>
-            <Button onClick={showTrailerHandler} inverse>
+            <Button
+              onClick={showTrailerHandler}
+              inverse>
               VIEW TRAILER
             </Button>
             {ctx.userId === props.userid && (
               <Button to={`/posters/${props.id}`}>EDIT</Button>
             )}
             {ctx.userId === props.userid && (
-              <Button danger onClick={showConfirmHandler}>
+              <Button
+                danger
+                onClick={showConfirmHandler}>
                 DELETE
               </Button>
             )}

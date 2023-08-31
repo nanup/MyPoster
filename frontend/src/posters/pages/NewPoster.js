@@ -1,22 +1,22 @@
-import "./NewPoster.css";
+import './NewPoster.css';
 
 import {
   VALIDATOR_MAXLENGTH,
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
-} from "../../shared/components/util/validators";
+} from '../../shared/components/util/validators';
 
-import AUTOFILL_INPUTS from "../AutofillInputs";
-import { AuthContext } from "../../shared/components/FormElements/context/auth-context";
-import Button from "./../../shared/components/FormElements/Button";
-import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import Input from "../../shared/components/FormElements/Input";
-import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
-import React from "react";
-import { useContext } from "react";
-import useForm from "./../../shared/hooks/form-hook";
-import { useHttpClient } from "./../../shared/hooks/http-hook";
-import { useNavigate } from "react-router-dom";
+import AUTOFILL_INPUTS from '../AutofillInputs';
+import { AuthContext } from '../../shared/components/FormElements/context/auth-context';
+import Button from './../../shared/components/FormElements/Button';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import Input from '../../shared/components/FormElements/Input';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import React from 'react';
+import { useContext } from 'react';
+import useForm from './../../shared/hooks/form-hook';
+import { useHttpClient } from './../../shared/hooks/http-hook';
+import { useNavigate } from 'react-router-dom';
 
 const NewPoster = () => {
   const ctx = useContext(AuthContext);
@@ -24,23 +24,23 @@ const NewPoster = () => {
   const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
-        value: "",
+        value: '',
         isValid: false,
       },
       year: {
-        value: "",
+        value: '',
         isValid: false,
       },
       image: {
-        value: "",
+        value: '',
         isValid: false,
       },
       trailerLink: {
-        value: "",
+        value: '',
         isValid: false,
       },
       description: {
-        value: "",
+        value: '',
         isValid: false,
       },
     },
@@ -54,8 +54,8 @@ const NewPoster = () => {
 
     try {
       await sendRequest(
-        process.env.REACT_APP_URL + "/posters",
-        "POST",
+        process.env.REACT_APP_URL + '/posters',
+        'POST',
         JSON.stringify({
           userId: ctx.userId,
           title: formState.inputs.title.value,
@@ -65,12 +65,12 @@ const NewPoster = () => {
           description: formState.inputs.description.value,
         }),
         {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + ctx.token,
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + ctx.token,
         }
       );
 
-      navigate("/");
+      navigate('/');
     } catch (err) {
       console.log(err);
     }
@@ -111,12 +111,17 @@ const NewPoster = () => {
 
   return (
     <div className='addposter-container'>
-      <ErrorModal error={error} onClear={clearError} />
-      <form onSubmit={addPosterHandler} className='place-form'>
+      <ErrorModal
+        error={error}
+        onClear={clearError}
+      />
+      <form
+        onSubmit={addPosterHandler}
+        className='place-form'>
         {isLoading && <LoadingSpinner asOverlay />}
         <Input
           element='input'
-          errorText={"Please enter a valid title"}
+          errorText={'Please enter a valid title'}
           id='title'
           label='Title*'
           value={formState.inputs.title.value}
@@ -126,7 +131,7 @@ const NewPoster = () => {
         />
         <Input
           element='input'
-          errorText={"Please enter a valid year"}
+          errorText={'Please enter a valid year'}
           id='year'
           label='Year*'
           value={formState.inputs.year.value}
@@ -136,7 +141,7 @@ const NewPoster = () => {
         />
         <Input
           element='input'
-          errorText={"Please enter a valid image link"}
+          errorText={'Please enter a valid image link'}
           id='image'
           label='Poster Link* (Ex: TMDb)'
           value={formState.inputs.image.value}
@@ -146,7 +151,7 @@ const NewPoster = () => {
         />
         <Input
           element='input'
-          errorText={"Please enter a valid trailer embed link"}
+          errorText={'Please enter a valid trailer embed link'}
           id='trailerLink'
           label='Trailer Embed Link (Ex: YouTube)'
           value={formState.inputs.trailerLink.value}
@@ -156,15 +161,17 @@ const NewPoster = () => {
         />
         <Input
           element='textarea'
-          errorText={"Please enter a valid description"}
+          errorText={'Please enter a valid description'}
           id='description'
           label='Description'
           value={formState.inputs.description.value}
           onInput={inputHandler}
           validators={[]}
         />
-        <p style={{ color: "red" }}>* fields are required</p>
-        <Button type='submit' disabled={!formState.isValid}>
+        <p style={{ color: 'red' }}>* fields are required</p>
+        <Button
+          type='submit'
+          disabled={!formState.isValid}>
           Add Poster
         </Button>
         <Button onClick={autofillHandler}>Autofill</Button>

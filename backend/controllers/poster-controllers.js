@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
-const { validationResult } = require("express-validator");
+const mongoose = require('mongoose');
+const { validationResult } = require('express-validator');
 
-const httpError = require("../models/http-error");
-const Poster = require("../models/poster");
-const User = require("../models/user");
+const httpError = require('../models/http-error');
+const Poster = require('../models/poster');
+const User = require('../models/user');
 
 const getPosterById = async (req, res, next) => {
   const id = req.params.pid;
@@ -17,7 +17,7 @@ const getPosterById = async (req, res, next) => {
   }
 
   if (!poster) {
-    return next(new httpError("Poster not found", 404));
+    return next(new httpError('Poster not found', 404));
   }
 
   res.json({ poster: poster.toObject({ getters: true }) });
@@ -36,7 +36,7 @@ const getPostersByUserId = async (req, res, next) => {
 
   if (posters.length === 0) {
     const error = new httpError(
-      "Could not find posters from provided user ID",
+      'Could not find posters from provided user ID',
       404
     );
     return next(error);
@@ -49,7 +49,7 @@ const postPoster = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return next(httpError("Invalid inputs", 422));
+    return next(httpError('Invalid inputs', 422));
   }
 
   const { userId, title, description, year, trailerLink, image } = req.body;
@@ -72,7 +72,7 @@ const postPoster = async (req, res, next) => {
   }
 
   if (!hasUser) {
-    const error = new httpError("User not found", 404);
+    const error = new httpError('User not found', 404);
     return next(error);
   }
 
@@ -97,7 +97,7 @@ const patchPosterById = async (req, res, next) => {
 
   if (!errors.isEmpty()) {
     console.log(errors);
-    const error = new httpError("Invalid inputs", 422);
+    const error = new httpError('Invalid inputs', 422);
     return next(error);
   }
 
@@ -126,14 +126,14 @@ const deletePosterById = async (req, res, next) => {
 
   let poster;
   try {
-    poster = await Poster.findByIdAndDelete(id).populate("userId");
+    poster = await Poster.findByIdAndDelete(id).populate('userId');
   } catch (err) {
     const error = new httpError(err.message, 404);
     return next(error);
   }
 
   if (!poster) {
-    const error = new httpError("Poster not found", 404);
+    const error = new httpError('Poster not found', 404);
     return next(error);
   }
 
@@ -150,7 +150,7 @@ const deletePosterById = async (req, res, next) => {
     const error = new httpError(err.message, 500);
     return next(error);
   }
-  res.status(200).json({ message: "Poster deleted." });
+  res.status(200).json({ message: 'Poster deleted.' });
 };
 
 exports.getPosterById = getPosterById;

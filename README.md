@@ -54,6 +54,7 @@ Posterati was made with React.js for the frontend and Node.js, Express for the b
 <!-- GETTING STARTED -->
 
 ## Getting Started
+
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
@@ -86,6 +87,7 @@ node app.js
 ```
 
 5. Start the <b>React.js</b> server
+
 ```sh
 npm start
 ```

@@ -1,9 +1,9 @@
-import "./PosterList.css";
+import './PosterList.css';
 
-import Button from "../../shared/components/FormElements/Button";
-import Card from "../../shared/components/UIElements/Card";
-import PosterListItem from "./PosterListItem";
-import React from "react";
+import Button from '../../shared/components/FormElements/Button';
+import Card from '../../shared/components/UIElements/Card';
+import PosterListItem from './PosterListItem';
+import React from 'react';
 
 const PosterList = (props) => {
   if (props.posters.length !== 0) {
