@@ -1,37 +1,30 @@
 const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 
+const NotFoundError = require('../errors/notFound.error');
+
 const Poster = require('../models/poster');
 const User = require('../models/user');
 
-const getPosterById = async (req, res, next) => {
-  const id = req.params.pid;
+const getPosterByPosterId = async (req, res, next) => {
+  const posterId = req.params.posterId;
 
   let poster;
-  try {
-    poster = await Poster.findById(id);
-  } catch (err) {
-    const error = new Error(err.message, 404);
-    return next(error);
-  }
+  poster = await Poster.findById(posterId);
 
   if (!poster) {
-    return next(new Error('Poster not found', 404));
+    return next(new NotFoundError('Poster not found!'));
   }
 
-  res.json({ poster: poster.toObject({ getters: true }) });
+  return res.json({ poster: poster.toObject({ getters: true }) });
 };
 
 const getPostersByUserId = async (req, res, next) => {
-  const userId = req.params.uid;
+  const userId = req.params.userId;
+
   let posters = [];
-  try {
-    const query = await Poster.find({ userId: userId });
-    posters = query.map((poster) => poster.toObject());
-  } catch (err) {
-    const error = new Error(err.message, 404);
-    return next(error);
-  }
+  const query = await Poster.find({ userId: userId });
+  posters = query.map((poster) => poster.toObject());
 
   if (posters.length === 0) {
     const error = new httpError(
@@ -152,7 +145,7 @@ const deletePosterById = async (req, res, next) => {
   res.status(200).json({ message: 'Poster deleted.' });
 };
 
-exports.getPosterById = getPosterById;
+exports.getPosterByPosterId = getPosterByPosterId;
 exports.getPostersByUserId = getPostersByUserId;
 exports.postPoster = postPoster;
 exports.patchPosterById = patchPosterById;

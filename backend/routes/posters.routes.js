@@ -1,14 +1,13 @@
 const express = require('express');
 const { check } = require('express-validator');
-const checkToken = require('../middleware/check-token');
 
-const postersControllers = require('../controllers/poster-controllers');
+const checkToken = require('../middleware/verifyJwt.middleware');
 
 const posterRouter = express.Router();
+const postersController = require('../controllers/posters.controllers');
 
-posterRouter.get('/:pid', postersControllers.getPosterById);
-
-posterRouter.get('/user/:uid', postersControllers.getPostersByUserId);
+posterRouter.get('/:posterId', postersController.getPosterByPosterId);
+posterRouter.get('/:userId', postersController.getPostersByUserId);
 
 posterRouter.use(checkToken);
 
