@@ -12,7 +12,7 @@ const userRoutes = require('./routes/users.routes');
 const app = express();
 app.use(bodyParser.json());
 
-app.use((res, next) => {
+app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   next();
 });
@@ -20,11 +20,11 @@ app.use((res, next) => {
 app.use('/posters', posterRoutes);
 app.use('/users', userRoutes);
 
-app.use((next) => {
+app.use((req, res, next) => {
   next(new NotFoundError('Url not found!'));
 });
 
-app.use((err, res) => {
+app.use((err, req, res) => {
   return res
     .status(err.status || 500)
     .send(err.message || 'Something went wrong!');
