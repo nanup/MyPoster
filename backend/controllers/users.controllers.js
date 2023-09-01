@@ -73,6 +73,6 @@ const loginUser = async (req, res, next) => {
   res.json({ userId: user._id, email: user.email, token: token });
 };
 
-exports.getUsers = getAllUsers;
+exports.getAllUsers = getAllUsers;
 exports.signupUser = signupUser;
 exports.loginUser = loginUser;
