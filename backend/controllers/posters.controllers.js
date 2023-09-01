@@ -3,8 +3,8 @@ const { validationResult } = require('express-validator');
 
 const NotFoundError = require('../errors/notFound.error');
 
-const Poster = require('../models/poster');
-const User = require('../models/user');
+const Poster = require('../models/poster.model');
+const User = require('../models/user.model');
 
 const getPosterByPosterId = async (req, res, next) => {
   const posterId = req.params.posterId;
