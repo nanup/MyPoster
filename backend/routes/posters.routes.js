@@ -18,19 +18,19 @@ posterRouter.post(
     check('year').isLength({ min: 4, max: 4 }),
     check('image').not().isEmpty(),
   ],
-  postersControllers.postPoster
+  postersController.postPoster
 );
 
 posterRouter.patch(
-  '/:pid',
+  '/:posterId',
   [
     check('title').not().isEmpty(),
     check('year').isLength({ min: 4, max: 4 }),
     check('image').not().isEmpty(),
   ],
-  postersControllers.patchPosterById
+  postersController.patchPosterById
 );
 
-posterRouter.delete('/:pid', postersControllers.deletePosterById);
+posterRouter.delete('/:posterId', postersController.deletePosterById);
 
 module.exports = posterRouter;

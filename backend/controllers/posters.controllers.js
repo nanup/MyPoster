@@ -9,8 +9,7 @@ const User = require('../models/user.model');
 const getPosterByPosterId = async (req, res, next) => {
   const posterId = req.params.posterId;
 
-  let poster;
-  poster = await Poster.findById(posterId);
+  const poster = await Poster.findById(posterId);
 
   if (!poster) {
     return next(new NotFoundError('Poster not found!'));
@@ -26,14 +25,6 @@ const getPostersByUserId = async (req, res, next) => {
   const query = await Poster.find({ userId: userId });
   posters = query.map((poster) => poster.toObject());
 
-  if (posters.length === 0) {
-    const error = new httpError(
-      'Could not find posters from provided user ID',
-      404
-    );
-    return next(error);
-  }
-
   res.json({ posters });
 };
 
@@ -41,45 +32,33 @@ const postPoster = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return next(Error('Invalid inputs', 422));
+    return next(Error('Bad request', 400));
   }
 
-  const { userId, title, description, year, trailerLink, image } = req.body;
+  const { userId, title, description, year, trailerUrl, imageUrl } = req.body;
 
   const newPoster = new Poster({
     userId,
     title,
     description,
     year,
-    trailerLink,
-    image,
+    trailerUrl,
+    imageUrl,
   });
 
-  let hasUser;
-  try {
-    hasUser = await User.findById(userId);
-  } catch (err) {
-    const error = new httpError(err.message, 500);
-    return next(error);
+  const user = await User.findById(userId);
+  if (!user) {
+    return next(new NotFoundError("User doesn't exist!"));
   }
 
-  if (!hasUser) {
-    const error = new httpError('User not found', 404);
-    return next(error);
-  }
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
-  try {
-    const session = await mongoose.startSession();
-    session.startTransaction();
-    await newPoster.save({ session });
+  await newPoster.save({ session });
+  user.posters.push(newPoster);
+  await user.save({ session });
 
-    hasUser.posters.push(newPoster);
-    await hasUser.save({ session });
-
-    await session.commitTransaction();
-  } catch (err) {
-    throw new httpError(err.message, 500);
-  }
+  await session.commitTransaction();
 
   res.status(201).json({ poster: newPoster });
 };
@@ -88,61 +67,43 @@ const patchPosterById = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    console.log(errors);
-    const error = new httpError('Invalid inputs', 422);
-    return next(error);
+    return next(new Error('Bad request', 400));
   }
 
-  const { title, image, year, trailerLink } = req.body;
-  const id = req.params.pid;
+  const { title, imageUrl, year, trailerUrl } = req.body;
+  const posterId = req.params.posterId;
 
-  try {
-    const poster = await Poster.findById(id);
+  const poster = await Poster.findById(posterId);
 
-    poster.title = title;
-    poster.image = image;
-    poster.year = year;
-    poster.trailerLink = trailerLink;
+  poster.title = title;
+  poster.imageUrl = imageUrl;
+  poster.year = year;
+  poster.trailerUrl = trailerUrl;
 
-    await poster.save();
-  } catch (err) {
-    const error = new httpError(err.message, 404);
-    return next(error);
-  }
+  await poster.save();
 
-  res.status(200).json({ poster: { id, title, image, year, trailerLink } });
+  res.status(200).json({ poster: { title, imageUrl, year, trailerUrl } });
 };
 
 const deletePosterById = async (req, res, next) => {
-  const id = req.params.pid;
+  const posterId = req.params.posterId;
 
-  let poster;
-  try {
-    poster = await Poster.findByIdAndDelete(id).populate('userId');
-  } catch (err) {
-    const error = new httpError(err.message, 404);
-    return next(error);
-  }
+  const poster = await Poster.findByIdAndDelete(posterId).populate('userId');
 
   if (!poster) {
-    const error = new httpError('Poster not found', 404);
-    return next(error);
+    return next(new NotFoundError('Poster not found!'));
   }
 
-  try {
-    const session = await mongoose.startSession();
-    session.startTransaction();
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
-    await poster.remove({ session });
-    poster.userId.posters.pull(poster);
-    await poster.userId.save({ session });
+  await poster.remove({ session });
+  poster.userId.posters.pull(poster);
+  await poster.userId.save({ session });
 
-    await session.commitTransaction();
-  } catch (err) {
-    const error = new httpError(err.message, 500);
-    return next(error);
-  }
-  res.status(200).json({ message: 'Poster deleted.' });
+  await session.commitTransaction();
+
+  res.status(200).json({ message: 'Poster deleted' });
 };
 
 exports.getPosterByPosterId = getPosterByPosterId;
