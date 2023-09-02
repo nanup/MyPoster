@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import PosterList from './PosterList';
-import { useHttpClient } from './../../shared/hooks/http-hook';
+import { useHttpClient } from '../../shared/hooks/httpHook';
 import { useParams } from 'react-router-dom';
 
 const UserPosters = () => {
@@ -17,7 +17,7 @@ const UserPosters = () => {
     const fetchPosters = async () => {
       try {
         const responseData = await sendRequest(
-          process.env.dev.REACT_APP_URL + `/posters/user/${userId}`
+          process.env.REACT_APP_API_URL + `/posters/user/${userId}`
         );
         setPosters(responseData.posters);
       } catch (err) {

@@ -2,13 +2,13 @@ import './PosterListItem.css';
 
 import React, { useContext, useState } from 'react';
 
-import { AuthContext } from './../../shared/components/FormElements/context/auth-context';
+import { AuthContext } from './../../shared/context/auth-context';
 import Button from '../../shared/components/FormElements/Button';
 import Card from '../../shared/components/UIElements/Card';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import Modal from '../../shared/components/UIElements/Modal';
-import { useHttpClient } from '../../shared/hooks/http-hook';
+import { useHttpClient } from '../../shared/hooks/httpHook';
 
 const PosterListItem = (props) => {
   const ctx = useContext(AuthContext);

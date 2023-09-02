@@ -2,7 +2,7 @@ import './NavLinks.css';
 
 import React, { useContext } from 'react';
 
-import { AuthContext } from './../FormElements/context/auth-context';
+import { AuthContext } from '../../context/auth-context';
 import Button from '../FormElements/Button';
 import { NavLink } from 'react-router-dom';
 

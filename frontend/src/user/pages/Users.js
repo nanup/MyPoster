@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import ErrorModal from './../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from './../../shared/components/UIElements/LoadingSpinner';
 import UsersList from '../components/UsersList';
-import { useHttpClient } from './../../shared/hooks/http-hook';
+import { useHttpClient } from '../../shared/hooks/httpHook';
 
 const Users = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -13,7 +13,7 @@ const Users = () => {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          process.env.dev.REACT_APP_URL + '/users',
+          process.env.REACT_APP_API_URL + '/users',
           'GET',
           null,
           {}
@@ -27,14 +27,11 @@ const Users = () => {
   }, [sendRequest]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       {isLoading && <LoadingSpinner asOverlay />}
-      <ErrorModal
-        error={error}
-        onClear={clearError}
-      />
+      <ErrorModal error={error} onClear={clearError} />
       {!isLoading && users && <UsersList users={users} />}
-    </React.Fragment>
+    </Fragment>
   );
 };
 

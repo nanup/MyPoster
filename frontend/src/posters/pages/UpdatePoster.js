@@ -7,13 +7,13 @@ import {
   VALIDATOR_REQUIRE,
 } from './../../shared/components/util/validators';
 
-import { AuthContext } from './../../shared/components/FormElements/context/auth-context';
+import { AuthContext } from './../../shared/context/auth-context';
 import Button from '../../shared/components/FormElements/Button';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import Input from '../../shared/components/FormElements/Input';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import useForm from './../../shared/hooks/form-hook';
-import { useHttpClient } from '../../shared/hooks/http-hook';
+import { useHttpClient } from '../../shared/hooks/httpHook';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
