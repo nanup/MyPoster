@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import ErrorModal from '../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import ErrorModal from '../../shared/components/UI/ErrorModal';
+import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import PosterList from './PosterList';
 import { useHttpClient } from '../../shared/hooks/httpHook';
 import { useParams } from 'react-router-dom';

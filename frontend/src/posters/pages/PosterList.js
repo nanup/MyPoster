@@ -1,7 +1,7 @@
 import './PosterList.css';
 
 import Button from '../../shared/components/FormElements/Button';
-import Card from '../../shared/components/UIElements/Card';
+import Card from '../../shared/components/UI/Card';
 import PosterListItem from './PosterListItem';
 import React from 'react';
 

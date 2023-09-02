@@ -1,0 +1,8 @@
+.modal {
+  position: fixed;
+  width: calc(100% - 2 * var(--grid-gutter));
+  background-color: var(--primary);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

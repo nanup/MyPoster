@@ -7,7 +7,7 @@ import {
 import React, { Suspense, useCallback, useEffect, useState } from 'react';
 
 import { AuthContext } from './shared/context/auth-context';
-import LoadingSpinner from './shared/components/UIElements/LoadingSpinner';
+import LoadingSpinner from './shared/components/UI/LoadingSpinner';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import Users from './user/pages/Users';
 

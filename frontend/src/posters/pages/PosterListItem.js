@@ -4,10 +4,10 @@ import React, { useContext, useState } from 'react';
 
 import { AuthContext } from './../../shared/context/auth-context';
 import Button from '../../shared/components/FormElements/Button';
-import Card from '../../shared/components/UIElements/Card';
-import ErrorModal from '../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-import Modal from '../../shared/components/UIElements/Modal';
+import Card from '../../shared/components/UI/Card';
+import ErrorModal from '../../shared/components/UI/ErrorModal';
+import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
+import Modal from '../../shared/components/UI/Modal';
 import { useHttpClient } from '../../shared/hooks/httpHook';
 
 const PosterListItem = (props) => {

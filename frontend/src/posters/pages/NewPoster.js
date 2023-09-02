@@ -9,9 +9,9 @@ import {
 import AUTOFILL_INPUTS from '../AutofillInputs';
 import { AuthContext } from '../../shared/context/auth-context';
 import Button from './../../shared/components/FormElements/Button';
-import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import ErrorModal from '../../shared/components/UI/ErrorModal';
 import Input from '../../shared/components/FormElements/Input';
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import React from 'react';
 import { useContext } from 'react';
 import useForm from './../../shared/hooks/form-hook';

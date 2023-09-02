@@ -1,6 +1,6 @@
 import './UsersListItem.css';
 
-import Card from '../../shared/components/UIElements/Card';
+import Card from '../../shared/components/UI/Card';
 import { Link } from 'react-router-dom';
 import React from 'react';
 

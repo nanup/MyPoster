@@ -1,6 +1,6 @@
 import './UsersList.css';
 
-import Card from '../../shared/components/UIElements/Card';
+import Card from '../../shared/components/UI/Card';
 import React from 'react';
 import UsersListItem from './UsersListItem';
 
