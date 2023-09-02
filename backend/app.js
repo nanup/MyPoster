@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   next(new NotFoundError('Url not found!'));
 });
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   return res
     .status(err.status || 500)
     .send(err.message || 'Something went wrong!');

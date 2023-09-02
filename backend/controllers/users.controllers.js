@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 
 const FailedAuthorizationError = require('../errors/failedAuthorization.error');
+const BadRequestError = require('../errors/badRequest.error');
+const ConflictError = require('../errors/conflict.error');
 
 const User = require('../models/user.model');
 
@@ -17,15 +19,19 @@ const signupUser = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return next(new Error('Bad request', 400));
+    return next(new BadRequestError('Invalid inputs!'));
   }
 
   const { username, email, password } = req.body;
 
-  const user = await User.findOne({ email });
-
+  let user = await User.findOne({ email });
   if (user) {
-    return next(new Error('Email already in use', 409));
+    return next(new ConflictError('Email already in use!'));
+  }
+
+  user = await User.findOne({ username });
+  if (user) {
+    return next(new ConflictError('Username already in use!'));
   }
 
   const hashedPassword = await bcrypt.hash(password, 12);
@@ -47,7 +53,7 @@ const signupUser = async (req, res, next) => {
 
   res
     .status(201)
-    .json({ userId: newUser.userId, email: newUser.email, token: token });
+    .json({ userId: user._id, email: newUser.email, token: token });
 };
 
 const loginUser = async (req, res, next) => {
