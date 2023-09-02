@@ -31,11 +31,11 @@ const NewPoster = () => {
         value: '',
         isValid: false,
       },
-      image: {
+      imageUrl: {
         value: '',
         isValid: false,
       },
-      trailerLink: {
+      trailerUrl: {
         value: '',
         isValid: false,
       },
@@ -60,8 +60,8 @@ const NewPoster = () => {
           userId: ctx.userId,
           title: formState.inputs.title.value,
           year: formState.inputs.year.value,
-          image: formState.inputs.image.value,
-          trailerLink: formState.inputs.trailerLink.value,
+          imageUrl: formState.inputs.imageUrl.value,
+          trailerUrl: formState.inputs.trailerUrl.value,
           description: formState.inputs.description.value,
         }),
         {
@@ -92,12 +92,12 @@ const NewPoster = () => {
           value: autofillData.year,
           isValid: true,
         },
-        image: {
-          value: autofillData.image,
+        imageUrl: {
+          value: autofillData.imageUrl,
           isValid: true,
         },
-        trailerLink: {
-          value: autofillData.trailerLink,
+        trailerUrl: {
+          value: autofillData.trailerUrl,
           isValid: true,
         },
         description: {
@@ -141,10 +141,10 @@ const NewPoster = () => {
         />
         <Input
           element='input'
-          errorText={'Please enter a valid image link'}
-          id='image'
+          errorText={'Please enter a valid imageUrl link'}
+          id='imageUrl'
           label='Poster Link* (Ex: TMDb)'
-          value={formState.inputs.image.value}
+          value={formState.inputs.imageUrl.value}
           onInput={inputHandler}
           type='text'
           validators={[VALIDATOR_MINLENGTH(0)]}
@@ -152,9 +152,9 @@ const NewPoster = () => {
         <Input
           element='input'
           errorText={'Please enter a valid trailer embed link'}
-          id='trailerLink'
+          id='trailerUrl'
           label='Trailer Embed Link (Ex: YouTube)'
-          value={formState.inputs.trailerLink.value}
+          value={formState.inputs.trailerUrl.value}
           onInput={inputHandler}
           type='text'
           validators={[]}

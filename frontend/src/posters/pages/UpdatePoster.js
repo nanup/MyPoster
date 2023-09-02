@@ -34,11 +34,11 @@ const UpdatePoster = () => {
         value: '',
         isValid: false,
       },
-      image: {
+      imageUrl: {
         value: '',
         isValid: false,
       },
-      trailerLink: {
+      trailerUrl: {
         value: '',
         isValid: false,
       },
@@ -67,12 +67,12 @@ const UpdatePoster = () => {
               value: responseData.poster.year,
               isValid: true,
             },
-            image: {
-              value: responseData.poster.image,
+            imageUrl: {
+              value: responseData.poster.imageUrl,
               isValid: true,
             },
-            trailerLink: {
-              value: responseData.poster.trailerLink,
+            trailerUrl: {
+              value: responseData.poster.trailerUrl,
               isValid: true,
             },
             description: {
@@ -98,8 +98,8 @@ const UpdatePoster = () => {
         JSON.stringify({
           title: formState.inputs.title.value,
           year: formState.inputs.year.value,
-          image: formState.inputs.image.value,
-          trailerLink: formState.inputs.trailerLink.value,
+          imageUrl: formState.inputs.imageUrl.value,
+          trailerUrl: formState.inputs.trailerUrl.value,
         }),
         {
           'Content-Type': 'application/json',
@@ -156,25 +156,25 @@ const UpdatePoster = () => {
             validity={true}
           />
           <Input
-            id='image'
+            id='imageUrl'
             element='input'
             type='text'
             label='Poster Link* (Ex: TMDb)'
             validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(4)]}
             errorText='Please enter a valid title.'
             onInput={inputHandler}
-            value={formState.inputs.image.value}
+            value={formState.inputs.imageUrl.value}
             validity={true}
           />
           <Input
-            id='trailerLink'
+            id='trailerUrl'
             element='input'
             type='text'
             label='Trailer Embed Link (Ex: YouTube)'
             validators={[]}
             errorText='Please enter a valid embed link.'
             onInput={inputHandler}
-            value={formState.inputs.trailerLink.value}
+            value={formState.inputs.trailerUrl.value}
             validity={true}
           />
           <p style={{ color: 'red' }}>* fields are required</p>

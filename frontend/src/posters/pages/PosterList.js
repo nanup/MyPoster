@@ -13,11 +13,11 @@ const PosterList = (props) => {
           <PosterListItem
             key={poster._id}
             id={poster._id}
-            image={poster.image}
+            imageUrl={poster.imageUrl}
             title={poster.title}
             year={poster.year}
             description={poster.description}
-            trailerLink={poster.trailerLink}
+            trailerUrl={poster.trailerUrl}
             userid={poster.userId}
             onDelete={props.onDeletePoster}
           />

@@ -60,7 +60,7 @@ const Input = (props) => {
     });
   };
 
-  if (!inputState.isTouched && (id === 'trailerLink' || id === 'description')) {
+  if (!inputState.isTouched && (id === 'trailerUrl' || id === 'description')) {
     touchHandler();
     dispatchFn({
       type: 'CHANGE',

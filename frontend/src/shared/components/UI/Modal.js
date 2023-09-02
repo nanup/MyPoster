@@ -7,26 +7,18 @@ import Backdrop from './Backdrop';
 
 const ModalOverlay = (props) => {
   const modal = (
-    <div className={`modal ${props.className}`} style={props.style}>
-      <header className={`modal__header ${props.headerClass}`}>
-        <h2>{props.header}</h2>
-        <footer className={`modal__footer ${props.footerClass}`}>
-          {props.footer}
-        </footer>
-      </header>
-      <form
-        className='modal__form'
-        onSubmit={
-          props.onSubmit
-            ? props.onSubmit
-            : (event) => {
-                event.preventDefault();
-              }
-        }>
-        <div className={`modal__content ${props.contentClass}`}>
-          {props.children}
+    <div className='modal'>
+      <section className='modal-poster'>
+        <img href={props.imageUrl} alt={props.title} />
+      </section>
+      <section className='modal-trailer-info'>
+        <div className='modal-trailer'>
+          <iframe src={props.trailerUrl} title='trailer'></iframe>
         </div>
-      </form>
+        <div className='modal-info'>
+          <h1>{`${props.title} (${props.year})`}</h1>
+        </div>
+      </section>
     </div>
   );
 

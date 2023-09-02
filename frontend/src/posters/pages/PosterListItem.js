@@ -47,10 +47,7 @@ const PosterListItem = (props) => {
 
   return (
     <React.Fragment>
-      <ErrorModal
-        error={error}
-        onClear={clearError}
-      />
+      <ErrorModal error={error} onClear={clearError} />
       <Modal
         show={showTrailer}
         onCancel={hideTrailerHandler}
@@ -61,14 +58,14 @@ const PosterListItem = (props) => {
             <p>{props.year}</p>
           </div>
         }
+        imageUrl={props.imageUrl}
+        title={props.title}
+        year={props.year}
+        trailerUrl={props.trailerUrl}
         contentClass={'place-item__modal-content'}
         footerClass={'place-item__modal-actions'}
         footer={<Button onClick={hideTrailerHandler}>Close</Button>}>
-        <iframe
-          title='Trailer'
-          className='trailer'
-          src={props.trailerLink}
-        />
+        <iframe title='Trailer' className='trailer' src={props.trailerUrl} />
       </Modal>
       <Modal
         show={showConfirm}
@@ -77,14 +74,10 @@ const PosterListItem = (props) => {
         footerClass='place-item__modal-actions'
         footer={
           <React.Fragment>
-            <Button
-              onClick={cancelShowConfirm}
-              inverse>
+            <Button onClick={cancelShowConfirm} inverse>
               CANCEL
             </Button>
-            <Button
-              onClick={confirmShowConfirm}
-              danger>
+            <Button onClick={confirmShowConfirm} danger>
               DELETE
             </Button>
           </React.Fragment>
@@ -92,10 +85,7 @@ const PosterListItem = (props) => {
         <div className='delete_poster--container'>
           <p>Do you want to delete this poster?</p>
           <div className='delete_poster'>
-            <img
-              src={props.image}
-              alt={props.title}
-            />
+            <img src={props.imageUrl} alt={props.title} />
           </div>
         </div>
       </Modal>
@@ -103,10 +93,7 @@ const PosterListItem = (props) => {
         <Card className='place-item__content'>
           {isLoading && <LoadingSpinner asOverlay />}
           <div className='place-item__image'>
-            <img
-              src={props.image}
-              alt={props.title}
-            />
+            <img src={props.imageUrl} alt={props.title} />
           </div>
           <div className='place-item__info'>
             <h2>{props.title}</h2>
@@ -114,18 +101,14 @@ const PosterListItem = (props) => {
             <p>{props.description}</p>
           </div>
           <div className='place-item__actions'>
-            <Button
-              onClick={showTrailerHandler}
-              inverse>
+            <Button onClick={showTrailerHandler} inverse>
               VIEW TRAILER
             </Button>
             {ctx.userId === props.userid && (
               <Button to={`/posters/${props.id}`}>EDIT</Button>
             )}
             {ctx.userId === props.userid && (
-              <Button
-                danger
-                onClick={showConfirmHandler}>
+              <Button danger onClick={showConfirmHandler}>
                 DELETE
               </Button>
             )}
