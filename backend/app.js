@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 
 const NotFoundError = require('./errors/notFound.error');
 
-const posterRoutes = require('./routes/posters.routes');
-const userRoutes = require('./routes/users.routes');
+const posterRoutes = require('./routes/poster.routes');
+const userRoutes = require('./routes/user.routes');
 
 const app = express();
 app.use(bodyParser.json());

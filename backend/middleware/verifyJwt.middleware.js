@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const FailedAuthorizationError = require('../errors/failedAuthorization.error');
 const FailedAuthenticationError = require('../errors/failedAuthentication.error');
 
-module.exports = (req, next) => {
+module.exports = (req, res, next) => {
   if (req.method === 'OPTIONS') {
     return next();
   }

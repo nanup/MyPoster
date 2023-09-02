@@ -12,7 +12,7 @@ const getAllUsers = async (req, res, next) => {
   let users;
   users = await User.find({}, '-password');
 
-  res.json({ users: users.map((user) => user.toObject({ getters: true })) });
+  res.json({ users: users.map((user) => user.toObject()) });
 };
 
 const signupUser = async (req, res, next) => {
