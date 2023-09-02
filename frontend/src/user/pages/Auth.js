@@ -69,7 +69,7 @@ const Auth = () => {
     if (isLogin) {
       try {
         const responseData = await sendRequest(
-          process.env.REACT_APP_URL + '/users/login',
+          process.env.dev.REACT_APP_URL + '/users/login',
           'POST',
           JSON.stringify({
             email: formState.inputs.email.value,
@@ -83,7 +83,7 @@ const Auth = () => {
     } else {
       try {
         await sendRequest(
-          process.env.REACT_APP_URL + '/users/signup',
+          process.env.dev.REACT_APP_URL + '/users/signup',
           'POST',
           JSON.stringify({
             email: formState.inputs.email.value,

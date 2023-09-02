@@ -75,65 +75,21 @@ function App() {
   if (token) {
     routes = (
       <React.Fragment>
-        <Route
-          path='/'
-          element={<Users />}
-        />
-        <Route
-          path='/:uid/posters'
-          element={<UserPosters />}
-        />
-        <Route
-          element={
-            <Navigate
-              to='/auth'
-              replace
-            />
-          }
-        />
-        <Route
-          path='/posters/new'
-          element={<NewPoster />}
-        />
-        <Route
-          path='/*'
-          element={
-            <Navigate
-              to='/'
-              replace
-            />
-          }
-        />
-        <Route
-          path='/posters/:posterId'
-          element={<UpdatePoster />}
-        />
+        <Route path='/' element={<Users />} />
+        <Route path='/:uid/posters' element={<UserPosters />} />
+        <Route element={<Navigate to='/auth' replace />} />
+        <Route path='/posters/new' element={<NewPoster />} />
+        <Route path='/*' element={<Navigate to='/' replace />} />
+        <Route path='/posters/:posterId' element={<UpdatePoster />} />
       </React.Fragment>
     );
   } else {
     routes = (
       <React.Fragment>
-        <Route
-          path='/'
-          element={<Users />}
-        />
-        <Route
-          path='/:uid/posters'
-          element={<UserPosters />}
-        />
-        <Route
-          path='/auth'
-          element={<Auth />}
-        />
-        <Route
-          path='/*'
-          element={
-            <Navigate
-              to='/auth'
-              replace
-            />
-          }
-        />
+        <Route path='/' element={<Users />} />
+        <Route path='/:uid/posters' element={<UserPosters />} />
+        <Route path='/auth' element={<Auth />} />
+        <Route path='/*' element={<Navigate to='/auth' replace />} />
       </React.Fragment>
     );
   }

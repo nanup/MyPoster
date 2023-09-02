@@ -35,7 +35,7 @@ const PosterListItem = (props) => {
   const confirmShowConfirm = async () => {
     setShowConfirm(false);
     await sendRequest(
-      process.env.REACT_APP_URL + '/posters/' + props.id,
+      process.env.dev.REACT_APP_URL + '/posters/' + props.id,
       'DELETE',
       null,
       {

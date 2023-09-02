@@ -17,7 +17,7 @@ const UserPosters = () => {
     const fetchPosters = async () => {
       try {
         const responseData = await sendRequest(
-          process.env.REACT_APP_URL + `/posters/user/${userId}`
+          process.env.dev.REACT_APP_URL + `/posters/user/${userId}`
         );
         setPosters(responseData.posters);
       } catch (err) {
