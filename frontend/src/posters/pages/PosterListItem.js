@@ -34,7 +34,7 @@ const PosterListItem = (props) => {
   const confirmShowConfirm = async () => {
     setShowConfirm(false);
     await sendRequest(
-      process.env.dev.REACT_APP_URL + '/posters/' + props.id,
+      process.env.REACT_APP_API_URL + '/posters/' + props.id,
       'DELETE',
       null,
       {
@@ -64,7 +64,6 @@ const PosterListItem = (props) => {
         contentClass={'place-item__modal-content'}
         footerClass={'place-item__modal-actions'}
         footer={<Button onClick={hideTrailerHandler}>Close</Button>}>
-        <iframe title='Trailer' className='trailer' src={props.trailerUrl} />
       </Modal>
       <Modal
         show={showConfirm}

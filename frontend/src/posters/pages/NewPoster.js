@@ -53,7 +53,7 @@ const NewPoster = () => {
 
     try {
       await sendRequest(
-        process.env.dev.REACT_APP_URL + '/posters',
+        process.env.REACT_APP_API_URL + '/posters',
         'POST',
         JSON.stringify({
           userId: ctx.userId,

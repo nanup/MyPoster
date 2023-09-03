@@ -89,3 +89,22 @@
     height: 60vh;
   }
 }
+
+.close {
+  border-radius: 100%;
+  width: 5vh;
+  height: 5vh;
+  position: fixed;
+  color: transparent;
+  right: 0.3em;
+  bottom: 0.3em;
+}
+
+.close > img {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

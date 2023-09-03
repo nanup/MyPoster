@@ -1,14 +1,14 @@
-import './MainNavigation.css';
+import './Navigation.css';
 
-import React, { useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import Backdrop from '../UI/Backdrop';
 import { Link } from 'react-router-dom';
-import MainHeader from './MainHeader';
+import Header from './Header';
 import NavLinks from './NavLinks';
 import SideDrawer from './SideDrawer';
 
-const MainNavigation = () => {
+const Navigation = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   const showDrawerHandler = () => {
@@ -20,32 +20,33 @@ const MainNavigation = () => {
   };
 
   return (
-    <React.Fragment>
+    <Fragment>
       {drawerVisible && <Backdrop onClick={hideDrawerHandler} />}
-      <SideDrawer
-        onClick={hideDrawerHandler}
-        visible={drawerVisible}>
-        <nav className='main-navigation__drawer-nav'>
+      <SideDrawer onClick={hideDrawerHandler} visible={drawerVisible}>
+        <nav className='drawer-navigation-links'>
           <NavLinks />
         </nav>
       </SideDrawer>
-      <MainHeader>
+      <Header>
         <button
+          name='drawer-button'
           onClick={showDrawerHandler}
-          className='main-navigation__menu-btn'>
+          className='drawer-button'>
           <span />
           <span />
           <span />
         </button>
-        <h1 className='main-navigation__title'>
-          <Link to='/'>Posterati</Link>
+        <h1 className='title'>
+          <Link to='/'>
+            <strong>POSTERATI</strong>
+          </Link>
         </h1>
-        <nav className='main-navigation__header-nav'>
+        <nav className='main-navigation-links'>
           <NavLinks />
         </nav>
-      </MainHeader>
-    </React.Fragment>
+      </Header>
+    </Fragment>
   );
 };
 
-export default MainNavigation;
+export default Navigation;

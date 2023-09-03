@@ -7,7 +7,7 @@ import {
 import React, { Suspense, useCallback, useEffect, useState } from 'react';
 
 import { AuthContext } from './shared/context/auth-context';
-import MainNavigation from './shared/components/Navigation/MainNavigation';
+import Navigation from './shared/components/Navigation/Navigation';
 import Users from './user/pages/Users';
 
 let logoutTimer;
@@ -103,7 +103,7 @@ function App() {
         logout: logout,
       }}>
       <Router>
-        <MainNavigation />
+        <Navigation />
         <main>
           <Suspense fallback={<p></p>}>
             <Routes>{routes}</Routes>

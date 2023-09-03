@@ -1,8 +1,10 @@
 .button {
   border-style: solid;
   border-color: var(--accent);
+  background-color: var(--accent);
+  color: var(--background);
   border-radius: 0.4em;
-  padding: var(--space-2xs)
+  padding: var(--space-2xs);
 }
 
 .button--inverse {

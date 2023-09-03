@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 
 import './Modal.css';
 import Backdrop from './Backdrop';
+import closeIcon from '../../../icons/close-icon.png';
 
 const ModalOverlay = (props) => {
   const modal = (
@@ -20,6 +21,9 @@ const ModalOverlay = (props) => {
         </div>
         <div className='modal-info'>
           <h1>{`${props.title} (${props.year})`}</h1>
+          <div onClick={props.onCancel} className='close'>
+            <img src={closeIcon} alt='Close' />
+          </div>
         </div>
       </section>
     </div>

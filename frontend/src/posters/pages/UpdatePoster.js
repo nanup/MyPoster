@@ -49,7 +49,7 @@ const UpdatePoster = () => {
     const fetchPoster = async () => {
       try {
         const responseData = await sendRequest(
-          process.env.dev.REACT_APP_URL + '/posters/' + posterId,
+          process.env.REACT_APP_API_URL + '/posters/' + posterId,
           'GET',
           null,
           {}
@@ -92,7 +92,7 @@ const UpdatePoster = () => {
 
     try {
       await sendRequest(
-        process.env.dev.REACT_APP_URL + '/posters/' + posterId,
+        process.env.REACT_APP_API_URL + '/posters/' + posterId,
         'PATCH',
         JSON.stringify({
           title: formState.inputs.title.value,
