@@ -1,9 +1,7 @@
 import './PosterList.css';
 
 import Button from '../../shared/components/Form/Button';
-import Card from '../../shared/components/UI/Card';
 import PosterListItem from './PosterListItem';
-import React from 'react';
 
 const PosterList = (props) => {
   if (props.posters.length !== 0) {
@@ -26,11 +24,9 @@ const PosterList = (props) => {
     );
   } else {
     return (
-      <div className='place-list center'>
-        <Card>
-          <h2>No posters.</h2>
-          <Button to='/posters/new'>Share Poster</Button>
-        </Card>
+      <div className='poster-list'>
+        <h2>No posters.</h2>
+        <Button to='/posters/new'>Share Poster</Button>
       </div>
     );
   }

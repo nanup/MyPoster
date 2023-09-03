@@ -4,7 +4,6 @@ import React, { useContext, useState } from 'react';
 
 import { AuthContext } from './../../shared/context/auth-context';
 import Button from '../../shared/components/Form/Button';
-import Card from '../../shared/components/UI/Card';
 import ErrorModal from '../../shared/components/UI/ErrorModal';
 import Modal from '../../shared/components/UI/Modal';
 import { useHttpClient } from '../../shared/hooks/httpHook';
@@ -50,21 +49,10 @@ const PosterListItem = (props) => {
       <Modal
         show={showTrailer}
         onCancel={hideTrailerHandler}
-        header={
-          <div>
-            <h3>{props.title}</h3>
-            <br></br>
-            <p>{props.year}</p>
-          </div>
-        }
         imageUrl={props.imageUrl}
         title={props.title}
         year={props.year}
-        trailerUrl={props.trailerUrl}
-        contentClass={'place-item__modal-content'}
-        footerClass={'place-item__modal-actions'}
-        footer={<Button onClick={hideTrailerHandler}>Close</Button>}>
-      </Modal>
+        trailerUrl={props.trailerUrl}></Modal>
       <Modal
         show={showConfirm}
         onCancel={cancelShowConfirm}
@@ -87,17 +75,16 @@ const PosterListItem = (props) => {
           </div>
         </div>
       </Modal>
-      <li className='place-item'>
-        <Card className='place-item__content'>
-          <div className='place-item__image'>
-            <img src={props.imageUrl} alt={props.title} />
-          </div>
-          <div className='place-item__info'>
-            <h2>{props.title}</h2>
-            <h3>{props.year}</h3>
+      <li className='entry-item'>
+        <div className='poster-item-image'>
+          <img src={props.imageUrl} alt={props.title} />
+        </div>
+        <div className='poster-item-info-buttons'>
+          <div className='poster-item-info'>
+            <h2>{`${props.title} (${props.year})`}</h2>
             <p>{props.description}</p>
           </div>
-          <div className='place-item__actions'>
+          <div className='poster-item-buttons'>
             <Button onClick={showTrailerHandler} inverse>
               WATCH TRAILER
             </Button>
@@ -110,7 +97,7 @@ const PosterListItem = (props) => {
               </Button>
             )}
           </div>
-        </Card>
+        </div>
       </li>
     </React.Fragment>
   );

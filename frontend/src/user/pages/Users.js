@@ -19,7 +19,9 @@ const Users = () => {
         );
 
         setUsers(responseData.users);
-      } catch (err) {}
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     fetchUsers();
@@ -28,7 +30,7 @@ const Users = () => {
   return (
     <Fragment>
       <ErrorModal error={error} onClear={clearError} />
-      { users && <UsersList users={users} />}
+      {users && <UsersList users={users} />}
     </Fragment>
   );
 };

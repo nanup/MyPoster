@@ -1,7 +1,5 @@
 import './UsersList.css';
 
-import Card from '../../shared/components/UI/Card';
-import React from 'react';
 import UsersListItem from './UsersListItem';
 
 const UsersList = (props) => {
@@ -13,7 +11,7 @@ const UsersList = (props) => {
             <UsersListItem
               key={user._id}
               id={user._id}
-              name={user.name}
+              username={user.username}
               posterCount={user.posters.length}
             />
           );
@@ -22,10 +20,8 @@ const UsersList = (props) => {
     );
   } else {
     return (
-      <div className='center'>
-        <Card>
-          <h2>No users found.</h2>
-        </Card>
+      <div>
+        <h2>No users found.</h2>
       </div>
     );
   }

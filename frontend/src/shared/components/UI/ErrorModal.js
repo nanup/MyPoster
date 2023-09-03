@@ -6,7 +6,7 @@ const ErrorModal = (props) => {
   return (
     <Modal
       onCancel={props.onClear}
-      header='ERROR!'
+      header='ERROR'
       show={!!props.error}
       footer={
         <div>

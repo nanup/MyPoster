@@ -1,0 +1,7 @@
+.users-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-basis: 200px;
+  justify-content: space-around;
+}

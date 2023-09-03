@@ -1,6 +1,7 @@
 import './Auth.css';
 
-import React, { useContext, useState } from 'react';
+import { useContext, useState, Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
@@ -9,12 +10,10 @@ import {
 
 import { AuthContext } from '../../shared/context/auth-context';
 import Button from '../../shared/components/Form/Button';
-import Card from './../../shared/components/UI/Card';
 import ErrorModal from '../../shared/components/UI/ErrorModal';
 import Input from '../../shared/components/Form/Input';
 import useForm from '../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/httpHook';
-import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
   const ctx = useContext(AuthContext);
@@ -98,12 +97,9 @@ const Auth = () => {
   };
 
   return (
-    <React.Fragment>
-      <ErrorModal
-        error={error}
-        onClear={clearError}
-      />
-      <Card className='authentication'>
+    <Fragment>
+      <ErrorModal error={error} onClear={clearError} />
+      <div className='authentication'>
         <form onSubmit={loginHandler}>
           {!isLogin && (
             <Input
@@ -135,19 +131,15 @@ const Auth = () => {
             type='password'
             validators={[VALIDATOR_MINLENGTH(6)]}
           />
-          <Button
-            type='submit'
-            disabled={!formState.isValid}>
+          <Button type='submit' disabled={!formState.isValid}>
             {isLogin ? 'LOGIN' : 'SIGNUP'}
           </Button>
         </form>
-        <Button
-          onClick={switchHandler}
-          inverse>
+        <Button onClick={switchHandler} inverse>
           SWITCH TO {isLogin ? 'SIGNUP' : 'LOGIN'}
         </Button>
-      </Card>
-    </React.Fragment>
+      </div>
+    </Fragment>
   );
 };
 

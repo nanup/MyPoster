@@ -7,27 +7,43 @@ import Backdrop from './Backdrop';
 import closeIcon from '../../../icons/close-icon.png';
 
 const ModalOverlay = (props) => {
-  const modal = (
-    <div className='modal'>
-      <section className='modal-poster'>
-        <img src={props.imageUrl} alt={props.title + ' Poster'} />
-      </section>
-      <section className='modal-trailer-info'>
-        <div className='modal-trailer'>
-          <iframe
-            src={props.trailerUrl}
-            title='trailer'
-            allowFullScreen></iframe>
-        </div>
-        <div className='modal-info'>
-          <h1>{`${props.title} (${props.year})`}</h1>
-          <div onClick={props.onCancel} className='close'>
-            <img src={closeIcon} alt='Close' />
+  let modal;
+  if (props.header === 'ERROR') {
+    modal = (
+      <div className='modal'>
+        <section className='modal-trailer-info'>
+          <div className='modal-info'>
+            <h1>{`${props.error}`}</h1>
+            <div onClick={props.onCancel} className='close'>
+              <img src={closeIcon} alt='Close' />
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
-  );
+        </section>
+      </div>
+    );
+  } else {
+    modal = (
+      <div className='modal'>
+        <section className='modal-poster'>
+          <img src={props.imageUrl} alt={props.title + ' Poster'} />
+        </section>
+        <section className='modal-trailer-info'>
+          <div className='modal-trailer'>
+            <iframe
+              src={props.trailerUrl}
+              title='trailer'
+              allowFullScreen></iframe>
+          </div>
+          <div className='modal-info'>
+            <h1>{`${props.title} (${props.year})`}</h1>
+            <div onClick={props.onCancel} className='close'>
+              <img src={closeIcon} alt='Close' />
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return ReactDOM.createPortal(modal, document.getElementById('modal'));
 };
