@@ -15,26 +15,28 @@ const NavLinks = () => {
   return (
     <ul className='nav-links'>
       <li>
-        <NavLink to='/'>HOME</NavLink>
+        <NavLink to='/'><Button>HOME</Button></NavLink>
       </li>
       {ctx.isLoggedIn && (
         <li>
-          <NavLink to={`/${ctx.userId}/posters`}>MY POSTERS</NavLink>
+          <NavLink to={`/${ctx.userId}/posters`}>
+            <Button>MY POSTERS</Button>
+          </NavLink>
         </li>
       )}
       {ctx.isLoggedIn && (
         <li>
-          <NavLink to='/posters/new'>ADD POSTER</NavLink>
+          <NavLink to='/posters/new'><Button>ADD POSTER</Button></NavLink>
         </li>
       )}
       {!ctx.isLoggedIn && (
         <li>
-          <NavLink to='/auth'>LOGIN</NavLink>
+          <NavLink to='/auth'><Button>LOGIN</Button></NavLink>
         </li>
       )}
       {ctx.isLoggedIn && (
         <li>
-          <Button onClick={logoutHandler}>LOGOUT</Button>
+          <Button inverse onClick={logoutHandler}>LOGOUT</Button>
         </li>
       )}
     </ul>

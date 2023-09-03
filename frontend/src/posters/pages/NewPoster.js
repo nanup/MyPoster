@@ -110,13 +110,8 @@ const NewPoster = () => {
 
   return (
     <div className='addposter-container'>
-      <ErrorModal
-        error={error}
-        onClear={clearError}
-      />
-      <form
-        onSubmit={addPosterHandler}
-        className='place-form'>
+      <ErrorModal error={error} onClear={clearError} />
+      <form onSubmit={addPosterHandler} className='poster-form'>
         <Input
           element='input'
           errorText={'Please enter a valid title'}
@@ -167,9 +162,7 @@ const NewPoster = () => {
           validators={[]}
         />
         <p style={{ color: 'red' }}>* fields are required</p>
-        <Button
-          type='submit'
-          disabled={!formState.isValid}>
+        <Button type='submit' disabled={!formState.isValid}>
           Add Poster
         </Button>
         <Button onClick={autofillHandler}>Autofill</Button>

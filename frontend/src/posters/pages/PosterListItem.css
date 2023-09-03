@@ -34,12 +34,13 @@
 
 .poster-item-buttons {
   display: flex;
-  justify-content: center;
   padding: var(--space-xs);
   padding-bottom: 0;
+  justify-content: space-around;
+  gap: 0.5em;
 }
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 620px) {
   .entry-item {
     flex-direction: column;
   }

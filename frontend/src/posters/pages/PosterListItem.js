@@ -85,11 +85,11 @@ const PosterListItem = (props) => {
             <p>{props.description}</p>
           </div>
           <div className='poster-item-buttons'>
-            <Button onClick={showTrailerHandler} inverse>
-              WATCH TRAILER
-            </Button>
+            <Button onClick={showTrailerHandler}>WATCH TRAILER</Button>
             {ctx.userId === props.userid && (
-              <Button to={`/posters/${props.id}`}>EDIT</Button>
+              <Button to={`/posters/${props.id}`} inverse>
+                EDIT
+              </Button>
             )}
             {ctx.userId === props.userid && (
               <Button danger onClick={showConfirmHandler}>

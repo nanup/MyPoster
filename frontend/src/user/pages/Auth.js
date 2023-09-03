@@ -86,7 +86,7 @@ const Auth = () => {
           JSON.stringify({
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
-            name: formState.inputs.username.value,
+            username: formState.inputs.username.value,
           }),
           { 'Content-Type': 'application/json' }
         );

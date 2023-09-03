@@ -5,6 +5,7 @@
   color: var(--background);
   border-radius: 0.4em;
   padding: var(--space-2xs);
+  margin: var(--space-2xs);
 }
 
 .button--inverse {
