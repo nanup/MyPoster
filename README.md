@@ -22,8 +22,8 @@
 
 ## About The Project
 
-<img src="https://github.com/nanup/MyPoster/blob/master/media/Posterati-posters.jpg?raw=true" alt="Posterati Posters">
-<img src="https://github.com/nanup/MyPoster/blob/master/media/Posterati-trailer.jpg?raw=true" alt="Posterati Trailer">
+<img src="https://github.com/nanup/MyPoster/blob/master/media/Posterati-posters.png?raw=true" alt="Posterati Posters">
+<img src="https://github.com/nanup/MyPoster/blob/master/media/Posterati-trailer.png?raw=true" alt="Posterati Trailer">
 
 Welcome to our social media app for movie and TV poster enthusiasts! Our app is designed to be a hub for users to discover, share, and discuss their favorite movie and TV posters.
 
