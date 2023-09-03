@@ -43,9 +43,10 @@
 }
 
 .modal-info {
-  font-size: var(--step-0);
+  font-size: calc(1.005 * var(--step-0));
   flex-grow: 1;
   display: inline-block;
+  position: relative;
   margin-top: var(--space-xs);
   padding: 0 var(--space-s);
   background-color: var(--primary);
@@ -53,12 +54,20 @@
   color: var(--secondary);
 }
 
-@media screen and (max-width: 1920px) {
-  .modal {
-    height: unset;
-  }
+.modal-info > img {
+  position: fixed;
+  right: var(--space-s);
+  bottom: var(--space-s);
+}
 
+@media screen and (max-width: 1000px) {
   .modal-poster {
     display: none;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .modal {
+    height: 60vh;
   }
 }
