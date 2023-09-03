@@ -9,11 +9,14 @@ const ModalOverlay = (props) => {
   const modal = (
     <div className='modal'>
       <section className='modal-poster'>
-        <img href={props.imageUrl} alt={props.title} />
+        <img src={props.imageUrl} alt={props.title + ' Poster'} />
       </section>
       <section className='modal-trailer-info'>
         <div className='modal-trailer'>
-          <iframe src={props.trailerUrl} title='trailer'></iframe>
+          <iframe
+            src={props.trailerUrl}
+            title='trailer'
+            allowFullScreen></iframe>
         </div>
         <div className='modal-info'>
           <h1>{`${props.title} (${props.year})`}</h1>
