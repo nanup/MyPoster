@@ -3,10 +3,9 @@ import './PosterListItem.css';
 import React, { useContext, useState } from 'react';
 
 import { AuthContext } from './../../shared/context/auth-context';
-import Button from '../../shared/components/FormElements/Button';
+import Button from '../../shared/components/Form/Button';
 import Card from '../../shared/components/UI/Card';
 import ErrorModal from '../../shared/components/UI/ErrorModal';
-import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import Modal from '../../shared/components/UI/Modal';
 import { useHttpClient } from '../../shared/hooks/httpHook';
 
@@ -14,7 +13,7 @@ const PosterListItem = (props) => {
   const ctx = useContext(AuthContext);
   const [showTrailer, setShowTrailer] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { error, sendRequest, clearError } = useHttpClient();
 
   const showTrailerHandler = () => {
     setShowTrailer(true);
@@ -91,7 +90,6 @@ const PosterListItem = (props) => {
       </Modal>
       <li className='place-item'>
         <Card className='place-item__content'>
-          {isLoading && <LoadingSpinner asOverlay />}
           <div className='place-item__image'>
             <img src={props.imageUrl} alt={props.title} />
           </div>
@@ -102,7 +100,7 @@ const PosterListItem = (props) => {
           </div>
           <div className='place-item__actions'>
             <Button onClick={showTrailerHandler} inverse>
-              VIEW TRAILER
+              WATCH TRAILER
             </Button>
             {ctx.userId === props.userid && (
               <Button to={`/posters/${props.id}`}>EDIT</Button>

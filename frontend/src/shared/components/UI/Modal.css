@@ -11,6 +11,24 @@
   overflow: hidden;
 }
 
+.modal.enter {
+  opacity: 0;
+}
+
+.modal.enter.active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.modal.exit {
+  opacity: 0;
+}
+
+.modal.exit.active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
 .modal-poster {
   height: 100%;
 }

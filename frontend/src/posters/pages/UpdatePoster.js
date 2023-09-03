@@ -8,10 +8,9 @@ import {
 } from './../../shared/components/util/validators';
 
 import { AuthContext } from './../../shared/context/auth-context';
-import Button from '../../shared/components/FormElements/Button';
+import Button from '../../shared/components/Form/Button';
 import ErrorModal from '../../shared/components/UI/ErrorModal';
-import Input from '../../shared/components/FormElements/Input';
-import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
+import Input from '../../shared/components/Form/Input';
 import useForm from './../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/httpHook';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +19,7 @@ import { useParams } from 'react-router-dom';
 const UpdatePoster = () => {
   const posterId = useParams().posterId;
   const [poster, setPoster] = useState();
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { error, sendRequest, clearError } = useHttpClient();
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
 
@@ -124,8 +123,7 @@ const UpdatePoster = () => {
         error={error}
         onClear={clearError}
       />
-      {isLoading && <LoadingSpinner asOverlay />}
-      {formState.inputs.title.value && !isLoading && (
+      {formState.inputs.title.value && (
         <form
           onSubmit={updatePosterHandler}
           className='updateposter-form'>

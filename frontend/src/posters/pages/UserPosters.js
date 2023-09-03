@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import ErrorModal from '../../shared/components/UI/ErrorModal';
-import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
 import PosterList from './PosterList';
 import { useHttpClient } from '../../shared/hooks/httpHook';
 import { useParams } from 'react-router-dom';
 
 const UserPosters = () => {
   const [posters, setPosters] = useState();
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const {error, sendRequest, clearError } = useHttpClient();
 
   const params = useParams();
   const userId = params.uid;
@@ -39,8 +38,7 @@ const UserPosters = () => {
         error={error}
         onClear={clearError}
       />
-      {isLoading && <LoadingSpinner asOverlay />}
-      {!isLoading && posters && (
+      {posters && (
         <PosterList
           posters={posters}
           onDeletePoster={deleteHandler}

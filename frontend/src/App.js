@@ -7,7 +7,6 @@ import {
 import React, { Suspense, useCallback, useEffect, useState } from 'react';
 
 import { AuthContext } from './shared/context/auth-context';
-import LoadingSpinner from './shared/components/UI/LoadingSpinner';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import Users from './user/pages/Users';
 
@@ -106,12 +105,7 @@ function App() {
       <Router>
         <MainNavigation />
         <main>
-          <Suspense
-            fallback={
-              <div className='center'>
-                <LoadingSpinner />
-              </div>
-            }>
+          <Suspense fallback={<p></p>}>
             <Routes>{routes}</Routes>
           </Suspense>
         </main>

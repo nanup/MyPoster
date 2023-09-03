@@ -1,12 +1,11 @@
 import { Fragment, useEffect, useState } from 'react';
 
 import ErrorModal from './../../shared/components/UI/ErrorModal';
-import LoadingSpinner from './../../shared/components/UI/LoadingSpinner';
 import UsersList from '../components/UsersList';
 import { useHttpClient } from '../../shared/hooks/httpHook';
 
 const Users = () => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { error, sendRequest, clearError } = useHttpClient();
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -28,9 +27,8 @@ const Users = () => {
 
   return (
     <Fragment>
-      {isLoading && <LoadingSpinner asOverlay />}
       <ErrorModal error={error} onClear={clearError} />
-      {!isLoading && users && <UsersList users={users} />}
+      { users && <UsersList users={users} />}
     </Fragment>
   );
 };

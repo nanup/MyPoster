@@ -8,10 +8,9 @@ import {
 
 import AUTOFILL_INPUTS from '../AutofillInputs';
 import { AuthContext } from '../../shared/context/auth-context';
-import Button from './../../shared/components/FormElements/Button';
+import Button from './../../shared/components/Form/Button';
 import ErrorModal from '../../shared/components/UI/ErrorModal';
-import Input from '../../shared/components/FormElements/Input';
-import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
+import Input from '../../shared/components/Form/Input';
 import React from 'react';
 import { useContext } from 'react';
 import useForm from './../../shared/hooks/form-hook';
@@ -20,7 +19,7 @@ import { useNavigate } from 'react-router-dom';
 
 const NewPoster = () => {
   const ctx = useContext(AuthContext);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
@@ -118,7 +117,6 @@ const NewPoster = () => {
       <form
         onSubmit={addPosterHandler}
         className='place-form'>
-        {isLoading && <LoadingSpinner asOverlay />}
         <Input
           element='input'
           errorText={'Please enter a valid title'}

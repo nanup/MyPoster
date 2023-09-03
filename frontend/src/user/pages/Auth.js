@@ -8,11 +8,10 @@ import {
 } from './../../shared/components/util/validators';
 
 import { AuthContext } from '../../shared/context/auth-context';
-import Button from '../../shared/components/FormElements/Button';
+import Button from '../../shared/components/Form/Button';
 import Card from './../../shared/components/UI/Card';
 import ErrorModal from '../../shared/components/UI/ErrorModal';
-import Input from '../../shared/components/FormElements/Input';
-import LoadingSpinner from '../../shared/components/UI/LoadingSpinner';
+import Input from '../../shared/components/Form/Input';
 import useForm from '../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/httpHook';
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +36,7 @@ const Auth = () => {
     false
   );
 
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { error, sendRequest, clearError } = useHttpClient();
 
   const switchHandler = (event) => {
     if (!isLogin) {
@@ -105,7 +104,6 @@ const Auth = () => {
         onClear={clearError}
       />
       <Card className='authentication'>
-        {isLoading && <LoadingSpinner asOverlay />}
         <form onSubmit={loginHandler}>
           {!isLogin && (
             <Input

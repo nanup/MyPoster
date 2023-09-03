@@ -1,4 +1,4 @@
-import Button from '../FormElements/Button';
+import Button from '../Form/Button';
 import Modal from './Modal';
 import React from 'react';
 

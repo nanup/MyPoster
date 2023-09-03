@@ -1,0 +1,11 @@
+.button {
+  border-style: solid;
+  border-color: var(--accent);
+  border-radius: 0.4em;
+  padding: var(--space-2xs)
+}
+
+.button--inverse {
+  background-color: transparent;
+  color: var(--accent);
+}
