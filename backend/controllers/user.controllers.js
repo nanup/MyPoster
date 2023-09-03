@@ -57,15 +57,15 @@ const signupUser = async (req, res, next) => {
 };
 
 const loginUser = async (req, res, next) => {
-  const { inputEmail, inputPassword } = req.body;
+  const { email, password } = req.body;
 
-  const user = await User.findOne({ email: inputEmail.toLowerCase() });
+  const user = await User.findOne({ email: email.toLowerCase() });
 
   if (!user) {
     return next(new FailedAuthorizationError('Unauthorized'));
   }
 
-  const isValidPassword = await bcrypt.compare(inputPassword, user.password);
+  const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
     return next(new FailedAuthorizationError('Unauthorized'));
   }

@@ -12,7 +12,7 @@ import { AuthContext } from '../../shared/context/auth-context';
 import Button from '../../shared/components/Form/Button';
 import ErrorModal from '../../shared/components/UI/ErrorModal';
 import Input from '../../shared/components/Form/Input';
-import useForm from '../../shared/hooks/form-hook';
+import useForm from '../../shared/hooks/formHook';
 import { useHttpClient } from '../../shared/hooks/httpHook';
 
 const Auth = () => {
@@ -99,7 +99,7 @@ const Auth = () => {
   return (
     <Fragment>
       <ErrorModal error={error} onClear={clearError} />
-      <div className='authentication'>
+      <div className='auth'>
         <form onSubmit={loginHandler}>
           {!isLogin && (
             <Input
@@ -112,7 +112,6 @@ const Auth = () => {
               validators={[VALIDATOR_REQUIRE()]}
             />
           )}
-          {!isLogin}
           <Input
             element='input'
             errorText='Please enter a valid email address'

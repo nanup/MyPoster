@@ -58,7 +58,7 @@ li {
 }
 
 body {
-  font-size: var(--step--1);
+  font-size: calc(0.5 * var(--step--1));
   background-color: var(--background);
 }
 

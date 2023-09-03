@@ -11,7 +11,7 @@ import { AuthContext } from './../../shared/context/auth-context';
 import Button from '../../shared/components/Form/Button';
 import ErrorModal from '../../shared/components/UI/ErrorModal';
 import Input from '../../shared/components/Form/Input';
-import useForm from './../../shared/hooks/form-hook';
+import useForm from './../../shared/hooks/formHook';
 import { useHttpClient } from '../../shared/hooks/httpHook';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';

@@ -1,6 +1,6 @@
 import './Input.css';
 
-import React, { useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 
 import { validate } from '../util/validators';
 
