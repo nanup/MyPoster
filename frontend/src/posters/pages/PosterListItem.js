@@ -55,26 +55,10 @@ const PosterListItem = (props) => {
         trailerUrl={props.trailerUrl}></Modal>
       <Modal
         show={showConfirm}
+        imageUrl={props.imageUrl}
         onCancel={cancelShowConfirm}
-        header='Are you sure?'
-        footerClass='place-item__modal-actions'
-        footer={
-          <React.Fragment>
-            <Button onClick={cancelShowConfirm} inverse>
-              CANCEL
-            </Button>
-            <Button onClick={confirmShowConfirm} danger>
-              DELETE
-            </Button>
-          </React.Fragment>
-        }>
-        <div className='delete_poster--container'>
-          <p>Do you want to delete this poster?</p>
-          <div className='delete_poster'>
-            <img src={props.imageUrl} alt={props.title} />
-          </div>
-        </div>
-      </Modal>
+        onConfirm={confirmShowConfirm}
+        header='DELETE'></Modal>
       <li className='entry-item'>
         <div className='poster-item-image'>
           <img src={props.imageUrl} alt={props.title} />
