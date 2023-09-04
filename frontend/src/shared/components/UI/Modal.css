@@ -58,6 +58,10 @@
   height: 70%;
 }
 
+.modal-trailer > p {
+  font-size: var(--step--1);
+}
+
 .modal-trailer > iframe {
   position: absolute;
   top: 0;

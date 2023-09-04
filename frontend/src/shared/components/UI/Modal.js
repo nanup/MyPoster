@@ -7,6 +7,8 @@ import Backdrop from './Backdrop';
 import closeIcon from '../../../icons/close-icon.png';
 import openIcon from '../../../icons/open-icon.png';
 
+const regexPtn = /^https:\/\/www\.youtube\.com\/embed\//;
+
 const ModalOverlay = (props) => {
   let modal;
   if (props.header === 'DELETE') {
@@ -36,6 +38,25 @@ const ModalOverlay = (props) => {
         <section className='modal-trailer-info'>
           <div className='modal-info'>
             <h1>{`${props.error}`}</h1>
+            <div onClick={props.onCancel} className='close'>
+              <img src={closeIcon} alt='Close' />
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  } else if (!regexPtn.test(props.trailerUrl)) {
+    modal = (
+      <div className='modal'>
+        <section className='modal-poster'>
+          <img src={props.imageUrl} alt={props.title + ' Poster'} />
+        </section>
+        <section className='modal-trailer-info'>
+          <div className='modal-trailer'>
+            <p>No trailer link provided.</p>
+          </div>
+          <div className='modal-info'>
+            <h1>{`${props.title} (${props.year})`}</h1>
             <div onClick={props.onCancel} className='close'>
               <img src={closeIcon} alt='Close' />
             </div>
